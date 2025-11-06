@@ -1,0 +1,120 @@
+.select-container {
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    flex-wrap: wrap;
+    width: 100%;
+    max-width: 1000px;
+    margin: 20px auto;
+}
+
+.custom-select-wrapper {
+    font-size: 1rem;
+    margin: 1em;
+    width: 300px;
+    background-color: #ffffff;
+    position: relative;
+    cursor: pointer;
+    border-radius: 5px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    transition: all 0.3s ease;
+    z-index: 10;
+}
+
+.custom-select-wrapper:hover {
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+.custom-select-wrapper.active {
+    z-index: 100;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+.custom-select-wrapper select {
+    display: none;
+}
+
+.custom-select-trigger {
+    display: block;
+    font-size: 1.1em;
+    color: #333;
+    padding: 15px 20px;
+    text-align: left;
+    user-select: none;
+    position: relative;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.custom-select-trigger::after {
+    content: '';
+    position: absolute;
+    right: 20px;
+    top: 50%;
+    margin-top: -4px;
+    border-style: solid;
+    border-width: 6px 6px 0 6px;
+    border-color: #555 transparent transparent transparent;
+    transition: all 0.3s ease;
+}
+
+.custom-select-wrapper.active .custom-select-trigger::after {
+    transform: rotate(180deg);
+    margin-top: -1px;
+}
+
+.custom-options {
+    position: absolute;
+    top: calc(100% + 5px);
+    left: 0;
+    display: none;
+    list-style-type: none;
+    text-align: left;
+    background-color: #FFF;
+    width: 100%;
+    box-sizing: border-box;
+    border-radius: 5px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+    max-height: 250px;
+    overflow-y: auto;
+}
+
+.custom-select-wrapper.active .custom-options {
+    display: block;
+    animation: fadeInUp 300ms ease forwards;
+}
+
+.custom-option {
+    display: block;
+    font-size: 1.1em;
+    color: #555;
+    padding: 12px 20px;
+    user-select: none;
+    transition: background-color 0.2s ease;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.custom-option:hover {
+    background-color: #f5f5f5;
+}
+
+.custom-option.selected {
+    background-color: #e8f0fe;
+    color: #1a73e8;
+    font-weight: 600;
+}
+
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translate3d(0, 10px, 0);
+    }
+
+    to {
+        opacity: 1;
+        transform: none;
+    }
+}

@@ -1,0 +1,129 @@
+@import url('https://fonts.googleapis.com/css2?family=Stack+Sans+Headline:wght@200..700&display=swap');
+
+body {
+    font-family: "Stack Sans Headline", sans-serif;
+    margin: 0;
+    background-color: #f5f3f4;
+}
+
+
+.list-cars {
+    max-width: 80%;
+    display: grid;
+    grid-template-columns: repeat(4, 270px);
+    background-color: #f5f3f4;
+    justify-content: space-evenly;
+    margin: 0 auto;
+}
+
+.car {
+    width: 270px;
+    height: 370px;
+    padding: 15px 15px;
+    border: 1px solid #ddd;
+    border-radius: 10px;
+    background-color: white;
+    margin-top: 50px;
+    cursor: pointer;
+}
+
+.image-car {
+    width: 100%;
+    height: 200px;
+    object-fit: cover;
+    border-radius: 10px;
+}
+
+.name-car {
+    font-size: 20px;
+    font-weight: bold;
+    position: relative;
+    bottom: 0%;
+}
+
+.features {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    position: relative;
+    bottom: 5%;
+}
+
+.features p {
+    color: #6c757d;
+    font-size: 14px;
+}
+
+.location {
+    position: relative;
+    bottom: 10%;
+    color: #6c757d;
+}
+
+.infomation {
+    position: relative;
+    bottom: 15%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.infomation p {
+    font-size: 14px;
+}
+
+.star,
+.trip {
+    color: #6c757d;
+}
+
+.ri-map-pin-2-fill {
+    color: #333;
+}
+
+.ri-star-fill {
+    color: #ffcb05;
+}
+
+.ri-signpost-fill {
+    color: #4f772d;
+}
+
+.price {
+    color: #4f772d;
+}
+
+.list-car-container {
+    width: 100%;
+    background-color: #f5f3f4;
+    margin: 50px 0px;
+    padding: 20px 0px;
+}
+
+.list-car-title {
+    color: #333;
+    max-width: 100%;
+    text-align: center;
+    font-weight: 500;
+    font-size: 40px;
+    margin: 0;
+    padding-top: 30px;
+}
+
+@media (max-width: 1200px) {
+    .list-cars {
+        grid-template-columns: repeat(3, 270px);
+    }
+}
+
+@media (max-width: 992px) {
+    .list-cars {
+        grid-template-columns: repeat(2, 270px);
+    }
+}
+
+@media (max-width: 576px) {
+    .list-cars {
+        grid-template-columns: repeat(1, 270px);
+    }
+}
