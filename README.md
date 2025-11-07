@@ -48,4 +48,31 @@ Hệ thống Quản lý Đoàn viên trong trường Đại học được xây 
 </div>
 
 ## 🚀 3. Hình ảnh các chức năng
+### Trang đăng nhập
 
+### Trang dashboard admin
+<p align="center">
+    <img src="docs/Admindashboard.png" alt="Admin Dashboard" width="900">
+</p>
+
+### Trang quản lý xe
+<p align="center">
+    <img src="docs/Quanlyxe.png" alt="Quản lý xe" width="900">
+</p>
+
+### Trang quản lý đặt xe
+<p align="center">
+    <img src="docs/Quanlydangkyxe.png" alt="Quản lý đặt xe" width="900">
+</p>
+
+### Trang quản lý người dùng
+<p align="center">
+    <img src="docs/Quanlynguoidung.png" alt="Quản lý người dùng" width="900">
+</p>
+
+### Trang quản lý chủ xe
+<p align="center">
+    <img src="docs/Quanlychuxe.png" alt="Quản lý chủ xe" width="900">
+</p>
+
+## ⚙️ 4. Cài đặt
