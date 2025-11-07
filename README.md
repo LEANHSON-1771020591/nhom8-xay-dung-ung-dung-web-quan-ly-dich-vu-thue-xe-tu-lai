@@ -79,3 +79,68 @@ Hệ thống Quản lý Đoàn viên trong trường Đại học được xây 
 </p>
 
 ## ⚙️ 4. Cài đặt
+
+### 4.1. Cài đặt công cụ, môi trường và các thư viện cần thiết
+- Tải và cài đặt **XAMPP**: https://www.apachefriends.org/download.html (khuyến nghị bản PHP 8.x)
+- Cài đặt **Visual Studio Code** và các extension:
+  - PHP Intelephense
+  - MySQL
+  - Prettier – Code Formatter
+
+### 4.2. Tải project
+Clone project về thư mục `htdocs` của XAMPP (ví dụ ổ C:)
+
+```bash
+cd C:\xampp\htdocs
+git clone https://github.com/<your-username>/BTL.git](https://github.com/LEANHSON-1771020591/nhom8-xay-dung-ung-dung-web-quan-ly-dich-vu-thue-xe-tu-lai.git
+Truy cập project qua đường dẫn:
+👉 `http://localhost/BTL/view/admin/index.php`
+```
+
+### 4.3. Setup database
+Mở XAMPP Control Panel, Start **Apache** và **MySQL**
+
+Truy cập MySQL Workbench / phpMyAdmin, tạo database:
+
+```sql
+CREATE DATABASE IF NOT EXISTS carrentaldb
+  CHARACTER SET utf8mb4
+  COLLATE utf8mb4_general_ci;
+```
+
+Import data từ file `Dump20251107.sql` (nằm ở thư mục gốc project).
+
+### 4.4. Setup tham số kết nối
+Mở file `functions/db_connection.php`, chỉnh thông tin DB nếu cần:
+
+```php
+<?php
+function getDbConnection() {
+    $servername = "localhost";
+    $username   = "root";
+    $password   = "";
+    $dbname     = "carrentaldb";
+    $port       = 3306;
+
+    $conn = mysqli_connect($servername, $username, $password, $dbname, $port);
+    if (!$conn) {
+        die("Kết nối database thất bại: " . mysqli_connect_error());
+    }
+
+    mysqli_set_charset($conn, "utf8mb4");
+    return $conn;
+}
+?>
+```
+
+### 4.5. Chạy hệ thống
+- Mở XAMPP Control Panel → Start **Apache** và **MySQL**
+- Truy cập website: 👉 `http://localhost/view/home.php`
+- Trang quản trị: 👉 `http://localhost/view/admin/index.php`
+
+### 4.6. Đăng nhập lần đầu
+- Tài khoản admin mặc định: `admin / admin123`
+- Sau khi đăng nhập, Admin có thể:
+  - Quản lý xe, biến thể và ảnh
+  - Quản lý đặt xe, người dùng, chủ xe
+  - Theo dõi thống kê trên Dashboard
