@@ -8,7 +8,7 @@
 
 <body>
 
-    <?php include __DIR__ . '/../components/nav.php'; ?>
+    <?php include __DIR__ . '/../view/components/nav.php'; ?>
 
     <div class="banner">
         

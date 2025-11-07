@@ -12,7 +12,7 @@
         <div class="form-wrapper">
             <div class="avatar">
                 <a href="home.php">
-                <img src="../src/assets/images/logo.png" alt="">
+                <img src="../src/assets/images/logos/logo.png" alt="">
                 </a>
             </div>
 

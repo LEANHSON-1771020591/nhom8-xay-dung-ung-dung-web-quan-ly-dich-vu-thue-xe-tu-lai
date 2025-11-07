@@ -9,10 +9,10 @@
 </head>
 <body>
 
-    <?php include __DIR__ . '/../components/nav.php'; ?>
+    <?php include __DIR__ . '/../view/components/nav.php'; ?>
     <div class="list-car-container">
         <p class="list-car-title">Xe Bạn Có Thể Thuê</p>
-        <?php include __DIR__ . '/../components/selectBox.php'; ?>
+        <?php include __DIR__ . '/../view/components/selectBox.php'; ?>
         <div class="list-cars">
             <div class="car">
                 <img src="https://n1-pstg-org.mioto.vn/cho_thue_xe_o_to_tu_lai_thue_xe_du_lich_hochiminh/suzuki_xl7_2022/p/g/2025/01/23/18/z49KtQxzbDr0eveAliybsA.jpg"

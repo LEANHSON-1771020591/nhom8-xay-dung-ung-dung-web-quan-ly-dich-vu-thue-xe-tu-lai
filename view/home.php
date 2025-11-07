@@ -10,7 +10,7 @@
 </head>
 <body>
 
-    <?php include __DIR__ . '/../components/nav.php'; ?>
+    <?php include __DIR__ . '/../view/components/nav.php'; ?>
     <div class="banner">
         <img src="../src/assets/images/banner/banner.jpg" alt="">
         <p class="banner-title">Vato - Cùng Bạn Trên Mọi Hành Trình</p>

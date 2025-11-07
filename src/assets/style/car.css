@@ -1,0 +1,323 @@
+@import url('https://fonts.googleapis.com/css2?family=Stack+Sans+Headline:wght@200..700&display=swap');
+
+body {
+    max-width: 100%;
+    font-family: "Stack Sans Headline", sans-serif;
+}
+
+hr.line {
+    border: 1px solid #dee2e6;
+    width: 100%;
+}
+
+.image-car {
+    display: grid;
+    grid-template-columns: 855px 410px;
+    grid-template-rows: 190px 190px 190px;
+    gap: 8px;
+    margin: 10px auto;
+    max-width: 1300px;
+}
+
+.image-one {
+    grid-row: 1 / 4;
+}
+
+.image-one img,
+.image-two img,
+.image-three img,
+.image-four img {
+    border-radius: 16px;
+}
+
+.image-two {
+    grid-column: 2;
+    grid-row: 1;
+}
+
+.image-three {
+    grid-column: 2;
+    grid-row: 2;
+}
+
+.image-four {
+    grid-column: 2;
+    grid-row: 3;
+}
+
+.image-car img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+}
+
+
+.content-car {
+    display: grid;
+    grid-template-columns: 855px 400px;
+    gap: 8px;
+    margin: 0 auto;
+    max-width: 1300px;
+}
+
+.info-car {
+    height: auto;
+}
+
+.feature-icon img {
+    width: 64px;
+    height: 64px;
+    object-fit: contain;
+}
+
+
+.engine-icon-group {}
+
+.engine-icon-path {
+    stroke: #FF8C00;
+    stroke-width: 6;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+    fill: none;
+}
+
+.gear-icon-group {}
+
+.gear-path {
+    stroke: #FF8C00;
+    stroke-width: 6;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+    fill: none;
+}
+
+.gear-node {
+    fill: #FF8C00;
+}
+
+.gear-text {
+    fill: #FF8C00;
+    font-size: 16px;
+    font-family: sans-serif;
+    text-anchor: middle;
+    dominant-baseline: middle;
+}
+
+.car-seat-icon-group {}
+
+.car-seat-icon-path {
+    stroke: #FF8C00;
+    stroke-width: 6;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+    fill: none;
+}
+
+.car-seat-icon-rect {
+    fill: none;
+    stroke: #FF8C00;
+    stroke-width: 4;
+}
+
+.fuel-can-icon-group {}
+
+.fuel-can-icon-path {
+    stroke: #FF8C00;
+    stroke-width: 6;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+    fill: none;
+}
+
+.fuel-can-icon-fill {
+    fill: #FF8C00;
+    stroke: none;
+}
+
+.feature-car-content {
+    width: 100%;
+    display: flex;
+    margin: 25px 0px;
+    justify-content: space-between;
+}
+
+.feature {
+    display: flex;
+    align-items: center;
+    width: 150px;
+    gap: 20px;
+}
+
+.feature-car {
+    margin: 25px 0;
+}
+
+.feature-title {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.sub {
+    font-size: 14px;
+    color: #6c757d;
+    margin: 0;
+}
+
+.main {
+    font-size: 18px;
+    color: #212529;
+    margin: 0;
+    font-weight: 600;
+}
+
+.title {
+    font-size: 20px;
+    font-weight: 600;
+    color: #212529;
+    margin: 0;
+}
+
+.desc {
+    font-size: 16px;
+    color: #495057;
+    margin-top: 12px;
+    font-weight: 400;
+    line-height: 1.5;
+}
+
+.desc-car {
+    margin: 25px 0px;
+}
+
+.policy-container {
+    width: 100%;
+    border-radius: 8px;
+    overflow: hidden;
+    margin: 25px 0px;
+}
+
+.policy-table {
+    width: 99%;
+    display: flex;
+    flex-direction: column;
+    border: 1px solid #eaeaea;
+}
+
+.policy-row {
+    display: flex;
+    border-bottom: 1px solid #eaeaea;
+    padding: 24px;
+}
+
+.policy-row:last-child {
+    border-bottom: none;
+}
+
+.policy-row.header {
+    font-weight: 600;
+    color: #222;
+    font-size: 16px;
+}
+
+.policy-time {
+    flex: 1;
+    padding-right: 20px;
+    line-height: 1.5;
+}
+
+.policy-time .subtext {
+    font-size: 14px;
+    color: #888;
+    margin-top: 4px;
+}
+
+.policy-fee {
+    flex-basis: 300px;
+    display: flex;
+    align-items: center;
+    font-size: 16px;
+}
+
+.icon {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 24px;
+    height: 24px;
+    border-radius: 50%;
+    color: #ffffff;
+    font-weight: bold;
+    font-size: 14px;
+    margin-right: 12px;
+}
+
+.icon.success {
+    background-color: #28a745;
+}
+
+.icon.danger {
+    background-color: #dc3545;
+    font-size: 18px;
+}
+
+.policy-notes {
+    padding: 30px 0px;
+    font-size: 14px;
+    color: #555;
+    line-height: 1.7;
+    background-color: #fcfcfc;
+}
+
+.policy-notes ul {
+    list-style-type: none;
+    padding-left: 0;
+    margin: 0;
+}
+
+.policy-notes li {
+    position: relative;
+    padding-left: 20px;
+    margin-bottom: 10px;
+}
+
+.policy-notes li:last-child {
+    margin-bottom: 0;
+}
+
+.policy-notes li::before {
+    content: '*';
+    position: absolute;
+    left: 0;
+    top: 0;
+    color: #555;
+}
+
+.policy-notes a {
+    color: #007bff;
+    text-decoration: none;
+    font-weight: 500;
+}
+
+.policy-notes a:hover {
+    text-decoration: underline;
+}
+
+
+.rent-car {
+    height: auto;
+}
+
+.rent-button {
+    width: 100%;
+    outline: none;
+    border: none;
+    background-color: #FF8C00;
+    color: #ffffff;
+    font-size: 18px;
+    font-weight: 600;
+    padding: 16px;
+    border-radius: 8px;
+    cursor: pointer;
+}
