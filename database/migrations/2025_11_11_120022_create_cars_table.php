@@ -25,6 +25,7 @@ return new class extends Migration {
             $table->int("trip");
             $table->int("seat");
             $table->int("owner_id");
+            $table->string("slug");
         });
     }
 
