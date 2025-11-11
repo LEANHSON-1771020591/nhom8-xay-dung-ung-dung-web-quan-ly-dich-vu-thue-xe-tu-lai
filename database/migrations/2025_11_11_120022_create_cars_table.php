@@ -22,9 +22,9 @@ return new class extends Migration {
             $table->string("transmission");
             $table->string("fuel");
             $table->string("consumed");
-            $table->int("trip");
-            $table->int("seat");
-            $table->int("owner_id");
+            $table->integer("trip");
+            $table->integer("seat");
+            $table->integer("owner_id");
             $table->string("slug");
         });
     }
