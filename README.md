@@ -50,7 +50,7 @@ Hệ thống Quản lý Đoàn viên trong trường Đại học được xây 
 ## 🚀 3. Hình ảnh các chức năng
 ### Trang đăng nhập
 <p align="center">
-    <img src="docs/login.png" alt="login" width="900">
+    <img src="public/images/imgreadme/login.png" alt="login" width="900">
 </p>
 
 ### Trang dashboard admin
