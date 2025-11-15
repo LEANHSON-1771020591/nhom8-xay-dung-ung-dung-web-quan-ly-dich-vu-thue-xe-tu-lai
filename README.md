@@ -55,7 +55,7 @@ Hệ thống Quản lý Đoàn viên trong trường Đại học được xây 
 
 ### Trang dashboard admin
 <p align="center">
-    <img src="public/images/imgreadme/Dashboard.png" alt="Admin Dashboard" width="900">
+    <img src="public/images/imgreadme/dashboard.png" alt="Admin Dashboard" width="900">
 </p>
 
 ### Trang quản lý xe
