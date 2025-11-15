@@ -15,6 +15,8 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
-        $this->call([CarSeeder::class, CategorySeeder::class, BookingSeeder::class]);
+        $this->call([
+            ResetDataSeeder::class,
+        ]);
     }
 }

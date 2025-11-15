@@ -175,9 +175,22 @@ Route::post('/book/{car}', function (Car $car) {
     if (!$end) {
         return redirect()->back()->with('error', 'Vui lòng chọn ngày kết thúc');
     }
-    if ($end < $start) {
-        return redirect()->back()->with('error', 'Ngày kết thúc phải sau ngày bắt đầu');
+    if (!preg_match('/^\d{4}-\d{2}-\d{2}$/', $end)) {
+        return redirect()->back()->with('error', 'Ngày kết thúc không hợp lệ');
     }
+    try {
+        $endDate = Carbon::createFromFormat('Y-m-d', $end);
+    } catch (\Exception $e) {
+        return redirect()->back()->with('error', 'Ngày kết thúc không hợp lệ');
+    }
+    if ($endDate->lt(Carbon::today())) {
+        return redirect()->back()->with('error', 'Ngày kết thúc phải từ hôm nay trở đi');
+    }
+    $maxDate = Carbon::today()->addYears(2);
+    if ($endDate->gt($maxDate)) {
+        return redirect()->back()->with('error', 'Ngày kết thúc không được quá 2 năm kể từ hôm nay');
+    }
+    $end = $endDate->toDateString();
     $overlap = Booking::where('car_id', $car->id)
         ->where('status', 'confirmed')
         ->where('start_date', '<=', $end)

@@ -98,7 +98,7 @@
 
                 <div class="my-6">
                     <p class="text-xl font-semibold text-gray-800">Mô tả</p>
-                    <p class="mt-3 text-base text-gray-700 leading-relaxed">{{ $car->desc }}</p>
+                    <p class="mt-3 text-base text-gray-700 leading-relaxed">{!!nl2br($car->desc)!!}</p>
                 </div>
 
                 <hr class="my-6 border-gray-200">

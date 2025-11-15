@@ -1,4 +1,4 @@
-document.addEventListener('DOMContentLoaded', function () {
+function initSelectBox() {
     const selectButton = document.getElementById('city-select-button');
     const optionsList = document.getElementById('city-options-list');
     const selectedText = document.getElementById('selected-city-text');
@@ -55,4 +55,10 @@ document.addEventListener('DOMContentLoaded', function () {
             }
         });
     }
-});
+}
+
+if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initSelectBox);
+} else {
+    initSelectBox();
+}
