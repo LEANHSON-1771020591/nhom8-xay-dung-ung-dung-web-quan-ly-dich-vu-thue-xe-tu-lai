@@ -16,7 +16,7 @@ return new class extends Migration {
             $table->string("address");
             $table->string("location");
             $table->string("price");
-            $table->string("images");
+            $table->json("images");
             $table->string("desc");
             $table->string("model");
             $table->string("transmission");

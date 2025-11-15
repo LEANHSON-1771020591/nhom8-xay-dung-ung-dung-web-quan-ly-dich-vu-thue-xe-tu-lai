@@ -6,12 +6,16 @@ use Illuminate\Database\Eloquent\Model;
 
 class Car extends Model
 {
-    protected $guard = [];
+    protected $guarded = [];
+
+    protected $casts = [
+        'images' => 'array',
+    ];
 
 
     public function user()
     {
-        return $this->belongsTo(related: User::class);
+        return $this->belongsTo(User::class, 'owner_id');
     }
 
     public function categories() {
