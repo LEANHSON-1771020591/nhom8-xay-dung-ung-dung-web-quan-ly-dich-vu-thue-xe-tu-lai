@@ -55,7 +55,7 @@ Hệ thống Quản lý Đoàn viên trong trường Đại học được xây 
 
 ### Trang dashboard admin
 <p align="center">
-    <img src="public/images/imgreadme/Admindashboard.png" alt="Admin Dashboard" width="900">
+    <img src="public/images/imgreadme/Dashboard.png" alt="Admin Dashboard" width="900">
 </p>
 
 ### Trang quản lý xe
@@ -80,67 +80,47 @@ Hệ thống Quản lý Đoàn viên trong trường Đại học được xây 
 
 ## ⚙️ 4. Cài đặt
 
-### 4.1. Cài đặt công cụ, môi trường và các thư viện cần thiết
-- Tải và cài đặt **XAMPP**: https://www.apachefriends.org/download.html (khuyến nghị bản PHP 8.x)
+### 4.1. Yêu cầu hệ thống
+- **PHP**: >= 8.2
+- **Composer**: Latest version
+- **Node.js**: >= 16.x và npm
+- **MySQL**: >= 5.7 hoặc MariaDB >= 10.3
+- **XAMPP** (khuyến nghị): https://www.apachefriends.org/download.html
+
+### 4.2. Cài đặt công cụ và extension
+- Tải và cài đặt **XAMPP** với PHP 8.2+
+- Cài đặt **Composer**: https://getcomposer.org/download/
+- Cài đặt **Node.js**: https://nodejs.org/
 - Cài đặt **Visual Studio Code** và các extension:
   - PHP Intelephense
+  - Laravel Extension Pack
   - MySQL
   - Prettier – Code Formatter
 
-### 4.2. Tải project
-Clone project về thư mục `htdocs` của XAMPP (ví dụ ổ C:)
+### 4.3. Clone project
+Clone project về thư mục `htdocs` của XAMPP:
 
 ```bash
 cd C:\xampp\htdocs
-git clone https://github.com/<your-username>/BTL.git](https://github.com/LEANHSON-1771020591/nhom8-xay-dung-ung-dung-web-quan-ly-dich-vu-thue-xe-tu-lai.git
-Truy cập project qua đường dẫn:
-👉 `http://localhost/BTL/view/admin/index.php`
+git clone https://github.com/LEANHSON-1771020591/nhom8-xay-dung-ung-dung-web-quan-ly-dich-vu-thue-xe-tu-lai.git BTL
+cd BTL
 ```
 
-### 4.3. Setup database
-Mở XAMPP Control Panel, Start **Apache** và **MySQL**
+### 4.4. Cài đặt dependencies
 
-Truy cập MySQL Workbench / phpMyAdmin, tạo database:
-
-```sql
-CREATE DATABASE IF NOT EXISTS carrentaldb
-  CHARACTER SET utf8mb4
-  COLLATE utf8mb4_general_ci;
+#### Cài đặt PHP dependencies (Composer)
+```bash
+composer install
 ```
 
-Import data từ file `Dump20251107.sql` (nằm ở thư mục gốc project).
-
-### 4.4. Setup tham số kết nối
-Mở file `functions/db_connection.php`, chỉnh thông tin DB nếu cần:
-
-```php
-<?php
-function getDbConnection() {
-    $servername = "localhost";
-    $username   = "root";
-    $password   = "";
-    $dbname     = "carrentaldb";
-    $port       = 3306;
-
-    $conn = mysqli_connect($servername, $username, $password, $dbname, $port);
-    if (!$conn) {
-        die("Kết nối database thất bại: " . mysqli_connect_error());
-    }
-
-    mysqli_set_charset($conn, "utf8mb4");
-    return $conn;
-}
-?>
+Nếu chưa có Composer toàn cục, tải `composer.phar`:
+```bash
+php -r "copy('https://getcomposer.org/installer', 'composer-setup.php');"
+php composer-setup.php
+php composer.phar install
 ```
 
-### 4.5. Chạy hệ thống
-- Mở XAMPP Control Panel → Start **Apache** và **MySQL**
-- Truy cập website: 👉 `http://localhost/view/home.php`
-- Trang quản trị: 👉 `http://localhost/view/admin/index.php`
-
-### 4.6. Đăng nhập lần đầu
-- Tài khoản admin mặc định: `admin / admin123`
-- Sau khi đăng nhập, Admin có thể:
-  - Quản lý xe, biến thể và ảnh
-  - Quản lý đặt xe, người dùng, chủ xe
-  - Theo dõi thống kê trên Dashboard
+#### Cài đặt Node.js dependencies
+```bash
+npm install
+```
