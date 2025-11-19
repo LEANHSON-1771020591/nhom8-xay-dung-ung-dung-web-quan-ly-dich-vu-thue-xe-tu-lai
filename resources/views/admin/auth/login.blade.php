@@ -9,7 +9,7 @@
     </head>
 <body>
     <div class="min-h-screen flex items-center justify-center bg-gray-50 p-4">
-        <form method="POST" action="/admin/login" class="bg-white rounded-xl border border-gray-200 p-6 w-full max-w-md">
+        <form method="POST" action="{{ url('/admin/login') }}" class="bg-white rounded-xl border border-gray-200 p-6 w-full max-w-md">
             @csrf
             <h1 class="text-2xl font-bold mb-4">Admin Đăng nhập</h1>
             <div class="mb-3">
@@ -24,7 +24,7 @@
             @if(session('error'))
                 <div class="text-sm text-red-600 mt-3">{{ session('error') }}</div>
             @endif
-            <p class="text-sm text-gray-600 mt-3">Chưa có tài khoản? <a class="text-green-600" href="/admin/register">Đăng ký Admin</a></p>
+            <p class="text-sm text-gray-600 mt-3">Chưa có tài khoản? <a class="text-green-600" href="{{ url('/admin/register') }}">Đăng ký Admin</a></p>
         </form>
     </div>
 </body>

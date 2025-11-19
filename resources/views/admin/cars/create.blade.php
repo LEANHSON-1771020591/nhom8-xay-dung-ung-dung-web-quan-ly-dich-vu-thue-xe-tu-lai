@@ -12,10 +12,10 @@
     <section class="ml-64 max-w-7xl px-4 sm:px-6 lg:px-8 py-10">
         <div class="flex items-center justify-between mb-8">
             <h1 class="text-2xl sm:text-3xl font-bold text-gray-900">Tạo xe mới</h1>
-            <a href="/admin/cars" class="text-green-600 hover:text-green-700 font-medium">Về danh sách xe</a>
+            <a href="{{ url('/admin/cars') }}" class="text-green-600 hover:text-green-700 font-medium">Về danh sách xe</a>
         </div>
         <div class="bg-white border border-gray-200 rounded-xl p-6 shadow-sm">
-            <form method="POST" action="/admin/cars" enctype="multipart/form-data" class="grid grid-cols-1 gap-4">
+            <form method="POST" action="{{ url('/admin/cars') }}" enctype="multipart/form-data" class="grid grid-cols-1 gap-4">
                 @csrf
                 <div>
                     <label class="block text-sm text-gray-600 mb-1">Model</label>

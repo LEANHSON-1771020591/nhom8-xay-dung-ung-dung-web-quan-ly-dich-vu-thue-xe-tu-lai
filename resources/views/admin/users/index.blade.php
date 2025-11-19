@@ -12,7 +12,7 @@
     <section class="ml-64 w-[calc(100vw-16rem)] max-w-[calc(100vw-16rem)] px-6 lg:px-8 py-10">
         <div class="flex items-center justify-between mb-8">
             <h1 class="text-2xl sm:text-3xl font-bold text-gray-900">Người dùng</h1>
-            <a href="/admin" class="text-green-600 hover:text-green-700 font-medium">Về Dashboard</a>
+            <a href="{{ url('/admin') }}" class="text-green-600 hover:text-green-700 font-medium">Về Dashboard</a>
         </div>
         <div class="bg-white border border-gray-200 rounded-xl overflow-hidden">
             <table class="min-w-full table-fixed">
@@ -31,7 +31,7 @@
                         <td class="px-4 py-2">{{ $u->email }}</td>
                         <td class="px-4 py-2">{{ $u->role }}</td>
                         <td class="px-4 py-2">
-                            <form method="POST" action="/admin/users/{{ $u->id }}/lock" class="inline" onsubmit="return confirm('Xóa người dùng này? Hành động không thể hoàn tác.');">
+                            <form method="POST" action="{{ url('/admin/users/' . $u->id . '/lock') }}" class="inline" onsubmit="return confirm('Xóa người dùng này? Hành động không thể hoàn tác.');">
                                 @csrf
                                 <button class="px-3 py-1 rounded bg-red-500 text-white text-sm inline-flex items-center space-x-1">
                                     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" class="h-4 w-4" fill="currentColor"><path d="M6 7h12v2H6V7Zm2 14h8a2 2 0 0 0 2-2V9H6v10a2 2 0 0 0 2 2Zm3-8h2v6h-2v-6Zm-1-9h4l1 2h-6l1-2Z"/></svg>

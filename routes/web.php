@@ -12,6 +12,11 @@ use App\Http\Controllers\HomeController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\OwnerController;
 use App\Http\Controllers\TripController;
+use App\Http\Controllers\Admin\AdminAuthController;
+use App\Http\Controllers\Admin\AdminDashboardController;
+use App\Http\Controllers\Admin\AdminCarController;
+use App\Http\Controllers\Admin\AdminUserController;
+use App\Http\Controllers\Admin\AdminBookingController;
 
 // Home routes - sử dụng HomeController
 Route::get('/', [HomeController::class, 'index']);
@@ -75,245 +80,24 @@ Route::get("/car/{slug}", function ($slug) {
 });
 
 
-// Admin auth
-Route::get('/admin/login', function () {
-    return view('admin.auth.login');
-});
+// Admin routes
+Route::get('/admin/login', [AdminAuthController::class, 'showLoginForm']);
+Route::post('/admin/login', [AdminAuthController::class, 'login']);
+Route::get('/admin/register', [AdminAuthController::class, 'showRegisterForm']);
+Route::post('/admin/register', [AdminAuthController::class, 'register']);
+Route::post('/admin/logout', [AdminAuthController::class, 'logout']);
 
-Route::post('/admin/login', function (Request $req) {
-    $credentials = $req->only('email', 'password');
-    if (!Auth::attempt($credentials)) {
-        return redirect()->back()->with('error', 'Thông tin đăng nhập không đúng');
-    }
-    if (Auth::user()->is_locked ?? false) {
-        Auth::logout();
-        return redirect()->back()->with('error', 'Tài khoản đã bị khóa');
-    }
-    if (Auth::user()->role !== 'admin') {
-        Auth::logout();
-        return redirect()->back()->with('error', 'Tài khoản không có quyền Admin');
-    }
-    $req->session()->regenerate();
-    return redirect('/admin');
-});
+Route::get('/admin', [AdminDashboardController::class, 'index']);
 
-Route::get('/admin/register', function () {
-    return view('admin.auth.register');
-});
+Route::get('/admin/cars', [AdminCarController::class, 'index']);
+Route::get('/admin/cars/create', [AdminCarController::class, 'create']);
+Route::post('/admin/cars', [AdminCarController::class, 'store']);
+Route::get('/admin/cars/{car}/edit', [AdminCarController::class, 'edit']);
+Route::put('/admin/cars/{car}', [AdminCarController::class, 'update']);
+Route::delete('/admin/cars/{car}', [AdminCarController::class, 'destroy']);
 
-Route::post('/admin/register', function (Request $req) {
-    $req->validate([
-        'username' => 'required|string|min:2',
-        'email' => 'required|email|unique:users,email',
-        'password' => 'required|confirmed|min:6',
-    ]);
-    $user = User::create([
-        'name' => $req->input('username'),
-        'email' => $req->input('email'),
-        'password' => bcrypt($req->input('password')),
-        'avatar' => 'https://via.placeholder.com/80',
-        'slug' => Str::slug($req->input('username')),
-        'role' => 'admin',
-    ]);
-    Auth::login($user);
-    return redirect('/admin');
-});
+Route::get('/admin/users', [AdminUserController::class, 'index']);
+Route::get('/admin/owners', [AdminUserController::class, 'owners']);
+Route::post('/admin/users/{user}/lock', [AdminUserController::class, 'lock']);
 
-Route::post('/admin/logout', function (Request $req) {
-    Auth::logout();
-    $req->session()->invalidate();
-    $req->session()->regenerateToken();
-    return redirect('/admin/login');
-});
-
-// Admin area
-Route::get('/admin', function () {
-    if (!Auth::check() || Auth::user()->role !== 'admin') {
-        return redirect('/admin/login');
-    }
-    $today = Carbon::today()->toDateString();
-    $usersCount = User::count();
-    $carsCount = Car::count();
-    $bookingsCount = Booking::count();
-    $dailyBookings = Booking::whereDate('created_at', $today)->count();
-    $weeklyBookings = Booking::whereBetween('created_at', [Carbon::now()->startOfWeek(), Carbon::now()->endOfWeek()])->count();
-    $monthlyBookings = Booking::whereBetween('created_at', [Carbon::now()->startOfMonth(), Carbon::now()->endOfMonth()])->count();
-    $recentBookings = Booking::with(['car','user'])->orderBy('created_at','desc')->take(5)->get();
-    $topOwners = User::withCount('cars')->orderBy('cars_count','desc')->take(5)->get();
-    $activeUsers = User::withCount(['bookings as recent_bookings_count' => function ($q) {
-        $q->where('status', 'confirmed')
-          ->whereDate('created_at', '>=', Carbon::now()->subDays(30));
-    }])->orderBy('recent_bookings_count','desc')->take(5)->get();
-    return view('admin.dashboard', compact('usersCount','carsCount','bookingsCount','dailyBookings','weeklyBookings','monthlyBookings','recentBookings','topOwners','activeUsers'));
-});
-
-Route::get('/admin/cars', function () {
-    if (!Auth::check() || Auth::user()->role !== 'admin') {
-        return redirect('/admin/login');
-    }
-    $status = null;
-    $location = request('location');
-    $owner = request('owner');
-    $model = request('model');
-    $transmission = request('transmission');
-    $seat = request('seat');
-    $fuel = request('fuel');
-    $min = request('min_price');
-    $max = request('max_price');
-    $query = Car::query();
-    
-    if ($location) $query->where('location', $location);
-    if ($owner) $query->where('owner_id', (int)$owner);
-    if ($model) $query->where('model','like','%'.$model.'%');
-    if ($transmission) $query->where('transmission',$transmission);
-    if ($seat) $query->where('seat',(int)$seat);
-    if ($fuel) $query->where('fuel',$fuel);
-    if ($min !== null && $min !== '') $query->whereRaw('CAST(price AS UNSIGNED) >= ?', [(int)$min]);
-    if ($max !== null && $max !== '') $query->whereRaw('CAST(price AS UNSIGNED) <= ?', [(int)$max]);
-    $cars = $query->orderBy('created_at','desc')->get();
-    $owners = User::whereHas('cars')->get();
-    return view('admin.cars.index', compact('cars','owners'));
-});
-
-// Bỏ luồng cập nhật trạng thái duyệt xe
-
-// Admin Cars CRUD
-Route::get('/admin/cars/create', function () {
-    if (!Auth::check() || Auth::user()->role !== 'admin') {
-        return redirect('/admin/login');
-    }
-    return view('admin.cars.create');
-});
-
-Route::post('/admin/cars', function (Request $req) {
-    if (!Auth::check() || Auth::user()->role !== 'admin') {
-        return redirect('/admin/login');
-    }
-    $validated = $req->validate([
-        'model' => 'required|string|min:2',
-        'address' => 'required|string|min:2',
-        'location' => 'required|string',
-        'price' => 'required|integer|min:1',
-        'seat' => 'required|integer|min:4',
-        'transmission' => 'required|in:AT,MT',
-        'fuel' => 'required|in:Xăng,Dầu,Điện',
-        'images' => 'required|array|size:4',
-        'images.*' => 'file|mimes:jpg,jpeg,png,webp|max:5120',
-        'desc' => 'required|string|min:10',
-        'owner_id' => 'required|integer|exists:users,id',
-    ]);
-    $paths = [];
-    foreach ($req->file('images') as $file) {
-        $paths[] = $file->store('cars', 'public');
-    }
-    $slug = Str::slug($validated['model']).'-'.Str::random(6);
-    $car = Car::create([
-        'model' => $validated['model'],
-        'address' => $validated['address'],
-        'location' => $validated['location'],
-        'price' => (string)$validated['price'],
-        'images' => $paths,
-        'desc' => $validated['desc'],
-        'trip' => 0,
-        'transmission' => $validated['transmission'],
-        'seat' => (int)$validated['seat'],
-        'fuel' => $validated['fuel'],
-        'consumed' => '—',
-        'owner_id' => (int)$validated['owner_id'],
-        'slug' => $slug,
-    ]);
-    return redirect('/admin/cars')->with('success','Đã tạo xe mới');
-});
-
-Route::get('/admin/cars/{car}/edit', function (Car $car) {
-    if (!Auth::check() || Auth::user()->role !== 'admin') {
-        return redirect('/admin/login');
-    }
-    return view('admin.cars.edit', compact('car'));
-});
-
-Route::put('/admin/cars/{car}', function (Request $req, Car $car) {
-    if (!Auth::check() || Auth::user()->role !== 'admin') {
-        return redirect('/admin/login');
-    }
-    $validated = $req->validate([
-        'model' => 'required|string|min:2',
-        'address' => 'required|string|min:2',
-        'location' => 'required|string',
-        'price' => 'required|integer|min:1',
-        'seat' => 'required|integer|min:4',
-        'transmission' => 'required|in:AT,MT',
-        'fuel' => 'required|in:Xăng,Dầu,Điện',
-        'images' => 'nullable|array',
-        'images.*' => 'file|mimes:jpg,jpeg,png,webp|max:5120',
-        'desc' => 'required|string|min:10',
-        'owner_id' => 'required|integer|exists:users,id',
-    ]);
-    $paths = null;
-    if ($req->hasFile('images')) {
-        $paths = [];
-        foreach ($req->file('images') as $file) {
-            $paths[] = $file->store('cars', 'public');
-        }
-    }
-    $car->model = $validated['model'];
-    $car->address = $validated['address'];
-    $car->location = $validated['location'];
-    $car->price = (string)$validated['price'];
-    if ($paths !== null) $car->images = $paths;
-    $car->desc = $validated['desc'];
-    $car->transmission = $validated['transmission'];
-    $car->seat = (int)$validated['seat'];
-    $car->fuel = $validated['fuel'];
-    $car->owner_id = (int)$validated['owner_id'];
-    $car->save();
-    return redirect('/admin/cars')->with('success','Đã cập nhật xe');
-});
-
-Route::delete('/admin/cars/{car}', function (Car $car) {
-    if (!Auth::check() || Auth::user()->role !== 'admin') {
-        return redirect('/admin/login');
-    }
-    $car->delete();
-    return redirect('/admin/cars')->with('success','Đã xóa xe');
-});
-
-Route::get('/admin/owners', function () {
-    if (!Auth::check() || Auth::user()->role !== 'admin') {
-        return redirect('/admin/login');
-    }
-    $owners = User::withCount('cars')->whereHas('cars')->get();
-    return view('admin.owners.index', compact('owners'));
-});
-
-Route::get('/admin/users', function () {
-    if (!Auth::check() || Auth::user()->role !== 'admin') {
-        return redirect('/admin/login');
-    }
-    $users = User::orderBy('created_at','desc')->get();
-    return view('admin.users.index', compact('users'));
-});
-
-Route::post('/admin/users/{user}/lock', function (User $user) {
-    if (!Auth::check() || Auth::user()->role !== 'admin') {
-        return redirect('/admin/login');
-    }
-    $user->is_locked = true;
-    $user->save();
-    return redirect()->back()->with('success','Đã khóa tài khoản người dùng');
-});
-
-Route::get('/admin/bookings', function () {
-    if (!Auth::check() || Auth::user()->role !== 'admin') {
-        return redirect('/admin/login');
-    }
-    $status = request('status');
-    $from = request('from');
-    $to = request('to');
-    $query = Booking::with(['car','user'])->orderBy('created_at','desc');
-    if ($status) $query->where('status',$status);
-    if ($from) $query->whereDate('created_at','>=',$from);
-    if ($to) $query->whereDate('created_at','<=',$to);
-    $bookings = $query->get();
-    return view('admin.bookings.index', compact('bookings'));
-});
+Route::get('/admin/bookings', [AdminBookingController::class, 'index']);

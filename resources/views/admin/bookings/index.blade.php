@@ -12,7 +12,7 @@
     <section class="ml-64 w-[calc(100vw-16rem)] max-w-[calc(100vw-16rem)] px-6 lg:px-8 py-10">
         <div class="flex items-center justify-between mb-8">
             <h1 class="text-2xl sm:text-3xl font-bold text-gray-900">Booking</h1>
-            <a href="/admin" class="text-green-600 hover:text-green-700 font-medium">Về Dashboard</a>
+            <a href="{{ url('/admin') }}" class="text-green-600 hover:text-green-700 font-medium">Về Dashboard</a>
         </div>
         <form method="GET" class="grid grid-cols-1 sm:grid-cols-4 gap-4 bg-white border border-gray-200 rounded-xl p-4 mb-6">
             <div>
@@ -33,7 +33,7 @@
             </div>
             <div class="flex items-end space-x-3">
                 <button type="submit" class="w-full bg-green-500 text-white font-medium py-2 rounded-lg hover:bg-green-600">Lọc</button>
-                <a href="/admin/bookings" class="w-full bg-gray-100 text-gray-700 font-medium py-2 rounded-lg hover:bg-gray-200 text-center">Hủy lọc</a>
+                <a href="{{ url('/admin/bookings') }}" class="w-full bg-gray-100 text-gray-700 font-medium py-2 rounded-lg hover:bg-gray-200 text-center">Hủy lọc</a>
             </div>
         </form>
         <div class="bg-white border border-gray-200 rounded-xl overflow-hidden">

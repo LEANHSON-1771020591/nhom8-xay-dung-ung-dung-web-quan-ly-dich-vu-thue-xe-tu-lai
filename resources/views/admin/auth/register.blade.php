@@ -9,7 +9,7 @@
     </head>
 <body>
     <div class="min-h-screen flex items-center justify-center bg-gray-50 p-4">
-        <form method="POST" action="/admin/register" class="bg-white rounded-xl border border-gray-200 p-6 w-full max-w-md">
+        <form method="POST" action="{{ url('/admin/register') }}" class="bg-white rounded-xl border border-gray-200 p-6 w-full max-w-md">
             @csrf
             <h1 class="text-2xl font-bold mb-4">Admin Đăng ký</h1>
             <div class="mb-3">

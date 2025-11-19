@@ -12,10 +12,10 @@
     <section class="ml-64 w-[calc(100vw-16rem)] max-w-[calc(100vw-16rem)] px-6 lg:px-8 py-10">
         <div class="flex items-center justify-between mb-8">
             <h1 class="text-2xl sm:text-3xl font-bold text-gray-900">Quản lý Xe</h1>
-            <a href="/admin" class="text-green-600 hover:text-green-700 font-medium">Về Dashboard</a>
+            <a href="{{ url('/admin') }}" class="text-green-600 hover:text-green-700 font-medium">Về Dashboard</a>
         </div>
         <div class="flex items-center justify-between mb-4">
-            <a href="/admin/cars/create" class="inline-block bg-green-600 text-white font-medium px-4 py-2 rounded-lg hover:bg-green-700 inline-flex items-center space-x-2">
+            <a href="{{ url('/admin/cars/create') }}" class="inline-block bg-green-600 text-white font-medium px-4 py-2 rounded-lg hover:bg-green-700 inline-flex items-center space-x-2">
                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" class="h-5 w-5" fill="currentColor"><path d="M11 11V5h2v6h6v2h-6v6h-2v-6H5v-2h6Z"/></svg>
                 <span>Tạo xe mới</span>
             </a>
@@ -70,7 +70,7 @@
             </div>
             <div class="flex items-end space-x-3">
                 <button type="submit" class="w-full bg-green-500 text-white font-medium py-2 rounded-lg hover:bg-green-600">Lọc</button>
-                <a href="/admin/cars" class="w-full bg-gray-100 text-gray-700 font-medium py-2 rounded-lg hover:bg-gray-200 text-center">Hủy lọc</a>
+                <a href="{{ url('/admin/cars') }}" class="w-full bg-gray-100 text-gray-700 font-medium py-2 rounded-lg hover:bg-gray-200 text-center">Hủy lọc</a>
             </div>
         </form>
         <div class="bg-white border border-gray-200 rounded-xl overflow-hidden">
@@ -102,11 +102,11 @@
                             <span class="px-2 py-1 rounded text-xs font-semibold {{ $color }}">{{ $car->status }}</span>
                         </td>
                         <td class="px-4 py-2">
-                            <a href="/admin/cars/{{ $car->id }}/edit" class="px-3 py-1 rounded bg-blue-500 text-white text-sm inline-flex items-center space-x-1">
+                            <a href="{{ url('/admin/cars/' . $car->id . '/edit') }}" class="px-3 py-1 rounded bg-blue-500 text-white text-sm inline-flex items-center space-x-1">
                                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" class="h-4 w-4" fill="currentColor"><path d="M3 17.25V21h3.75L17.81 9.94l-3.75-3.75L3 17.25Zm18-11.5a1 1 0 0 0 0-1.41l-2.34-2.34a1 1 0 0 0-1.41 0l-1.83 1.83 3.75 3.75L21 5.75Z"/></svg>
                                 <span>Sửa</span>
                             </a>
-                            <form method="POST" action="/admin/cars/{{ $car->id }}" class="inline ml-2" onsubmit="return confirm('Xóa xe này?');">
+                            <form method="POST" action="{{ url('/admin/cars/' . $car->id) }}" class="inline ml-2" onsubmit="return confirm('Xóa xe này?');">
                                 @csrf
                                 @method('DELETE')
                                 <button class="px-3 py-1 rounded bg-red-500 text-white text-sm inline-flex items-center space-x-1">
