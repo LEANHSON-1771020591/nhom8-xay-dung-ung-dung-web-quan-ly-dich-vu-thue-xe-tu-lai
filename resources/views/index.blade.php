@@ -112,7 +112,7 @@
         <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
             @foreach ($cars as $car)
             <div class="bg-white rounded-xl border border-gray-200 p-3 group transform hover:-translate-y-2 transition-transform duration-300">
-                <a href="/car/{{ $car->slug }}">
+                <a href="{{ url('/car/' . $car->slug) }}">
                     @php $first = is_array($car->images) ? ($car->images[0] ?? '') : $car->images; @endphp
                     @php $today = \Carbon\Carbon::today()->toDateString(); @endphp
                     @php $booked = \App\Models\Booking::activeOn($today)->where('car_id', $car->id)->exists(); @endphp
@@ -175,7 +175,7 @@
         <h2 class="text-3xl lg:text-4xl font-bold text-center text-gray-900 mb-12">Địa Điểm Nổi Bật</h2>
 
         <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-            <a href="/filter/ho-chi-minh" class="group block">
+            <a href="{{ url('/filter/ho-chi-minh') }}" class="group block">
                 <div class="relative h-[450px] rounded-2xl overflow-hidden">
                     <img class="absolute inset-0 w-full h-full object-cover transition-transform duration-300 group-hover:scale-105" src="https://n1-cstg.mioto.vn/g/2025/02/05/15/5MB4MWA8.jpg" alt="TP. Hồ Chí Minh">
                     <div class="absolute bottom-0 left-0 p-5 text-white">
@@ -183,7 +183,7 @@
                     </div>
                 </div>
             </a>
-            <a href="/filter/ha-noi" class="group block">
+            <a href="{{ url('/filter/ha-noi') }}" class="group block">
                 <div class="relative h-[450px] rounded-2xl overflow-hidden">
                     <img class="absolute inset-0 w-full h-full object-cover transition-transform duration-300 group-hover:scale-105" src="https://n1-cstg.mioto.vn/g/2025/02/05/17/EZ3I68NZ.jpg" alt="Hà Nội">
                     <div class="absolute bottom-0 left-0 p-5 text-white">
@@ -191,7 +191,7 @@
                     </div>
                 </div>
             </a>
-            <a href="/filter/da-nang" class="group block">
+            <a href="{{ url('/filter/da-nang') }}" class="group block">
                 <div class="relative h-[450px] rounded-2xl overflow-hidden">
                     <img class="absolute inset-0 w-full h-full object-cover transition-transform duration-300 group-hover:scale-105" src="https://n1-cstg.mioto.vn/g/2025/02/05/15/5VEX6XMN.jpg" alt="Đà Nẵng">
                     <div class="absolute bottom-0 left-0 p-5 text-white">
@@ -199,7 +199,7 @@
                     </div>
                 </div>
             </a>
-            <a href="/filter/thanh-hoa" class="group block">
+            <a href="{{ url('/filter/thanh-hoa') }}" class="group block">
                 <div class="relative h-[450px] rounded-2xl overflow-hidden">
                     <img class="absolute inset-0 w-full h-full object-cover transition-transform duration-300 group-hover:scale-105" src="https://n1-cstg.mioto.vn/g/2025/02/05/15/595BB2FL.jpg" alt="Thanh Hóa">
                     <div class="absolute bottom-0 left-0 p-5 text-white">
@@ -285,7 +285,7 @@
             <div class="absolute inset-0 z-10 flex flex-col justify-end p-6 sm:p-8 text-white drop-shadow">
                 <p class="text-2xl font-semibold">Xe đã sẵn sàng.<br />Bắt đầu hành trình ngay!</p>
                 <p class="mt-2 max-w-md">Tự tay cầm lái chiếc xe bạn yêu thích cho hành trình thêm hứng khởi.</p>
-                <a href="/" class="inline-flex items-center justify-center w-fit mt-4 bg-green-500 hover:bg-green-600 text-white font-medium px-5 py-2 text-sm rounded-md shadow-md">Thuê xe tự lái</a>
+                <a href="{{ url('/') }}" class="inline-flex items-center justify-center w-fit mt-4 bg-green-500 hover:bg-green-600 text-white font-medium px-5 py-2 text-sm rounded-md shadow-md">Thuê xe tự lái</a>
             </div>
         </div>
 
@@ -295,7 +295,7 @@
             <div class="absolute inset-0 z-10 flex flex-col justify-end items-end p-6 sm:p-8 text-white drop-shadow text-right">
                 <p class="text-2xl font-semibold">Tài xế của bạn đã đến!</p>
                 <p class="mt-2 ml-auto max-w-md">Chuyến đi thêm thú vị cùng các bác tài xế trên Vato.</p>
-                <a href="/filter/ho-chi-minh" class="inline-block mt-4 bg-green-500 hover:bg-green-600 text-white font-medium px-6 py-3 text-base rounded-lg shadow-md">Thuê xe có tài xế</a>
+                <a href="{{ url('/filter/ho-chi-minh') }}" class="inline-block mt-4 bg-green-500 hover:bg-green-600 text-white font-medium px-6 py-3 text-base rounded-lg shadow-md">Thuê xe có tài xế</a>
             </div>
         </div>
     </div>

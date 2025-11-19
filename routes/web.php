@@ -8,11 +8,11 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use Carbon\Carbon;
+use App\Http\Controllers\HomeController;
 
-Route::get('/', function () {
-    $cars = Car::where('status','approved')->take(8)->get();
-    return view('index', compact('cars'));
-});
+// Home routes - sử dụng HomeController
+Route::get('/', [HomeController::class, 'index']);
+Route::get('/about', [HomeController::class, 'about']);
 
 Route::get('/owner', function () {
     if (!Auth::check()) {
@@ -59,10 +59,6 @@ Route::post('/owner', function (Request $req) {
         'slug' => $slug,
     ]);
     return redirect('/car/'.$car->slug)->with('success', 'Đã đăng ký xe thành công');
-});
-
-Route::get('/about', function () {
-    return view('about.index');
 });
 
 Route::get('/login', function () {

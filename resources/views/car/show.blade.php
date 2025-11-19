@@ -14,7 +14,7 @@
 
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div class="flex items-center justify-end mb-4">
-            <a href="/" class="text-green-600 hover:text-green-700 font-medium">Về trang chủ</a>
+            <a href="{{ url('/') }}" class="text-green-600 hover:text-green-700 font-medium">Về trang chủ</a>
         </div>
         <div class="my-4 grid grid-cols-[2fr_1fr] grid-rows-3 gap-2 h-[586px]">
             <div class="row-span-3">

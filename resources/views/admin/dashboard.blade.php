@@ -12,7 +12,7 @@
     <section class="ml-64 w-[calc(100vw-16rem)] max-w-[calc(100vw-16rem)] px-6 lg:px-8 py-10">
         <div class="flex items-center justify-between mb-4">
             <h1 class="text-2xl sm:text-3xl font-bold text-gray-900">Admin Dashboard</h1>
-            <a href="/" class="text-green-600 hover:text-green-700 font-medium">Về trang chủ</a>
+            <a href="{{ url('/') }}" class="text-green-600 hover:text-green-700 font-medium">Về trang chủ</a>
         </div>
         <p class="text-gray-600 mb-8">Theo dõi hiệu suất hệ thống, quản lý xe, người dùng và đặt xe từ một nơi.</p>
 

@@ -97,7 +97,7 @@
                 <div class="absolute inset-0 z-10 flex flex-col justify-end p-6 sm:p-8 text-white drop-shadow">
                     <p class="text-2xl font-semibold">Xe đã sẵn sàng.<br />Bắt đầu hành trình ngay!</p>
                     <p class="mt-2 max-w-md">Tự tay cầm lái chiếc xe bạn yêu thích cho hành trình thêm hứng khởi.</p>
-                    <a href="/" class="inline-flex items-center justify-center w-fit mt-4 bg-green-500 hover:bg-green-600 text-white font-medium px-5 py-2 text-sm rounded-md shadow-md">Thuê xe tự lái</a>
+                    <a href="{{ url('/') }}" class="inline-flex items-center justify-center w-fit mt-4 bg-green-500 hover:bg-green-600 text-white font-medium px-5 py-2 text-sm rounded-md shadow-md">Thuê xe tự lái</a>
                 </div>
             </div>
 

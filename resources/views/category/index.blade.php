@@ -13,7 +13,7 @@
     <section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10">
         <div class="flex items-center justify-between mb-8">
             <h1 class="text-2xl sm:text-3xl font-bold text-gray-900">Xe tại {{ ucwords(str_replace('-', ' ', $slug)) }}</h1>
-            <a href="/" class="text-green-600 hover:text-green-700 font-medium">Về trang chủ</a>
+            <a href="{{ url('/') }}" class="text-green-600 hover:text-green-700 font-medium">Về trang chủ</a>
         </div>
 
         <form method="GET" action="/filter/{{ $slug }}" class="mb-6 grid grid-cols-1 sm:grid-cols-3 gap-4 bg-white border border-gray-200 rounded-xl p-4">
