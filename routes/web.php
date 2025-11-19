@@ -10,6 +10,7 @@ use Illuminate\Http\Request;
 use Carbon\Carbon;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\OwnerController;
 
 // Home routes - sử dụng HomeController
 Route::get('/', [HomeController::class, 'index']);
@@ -22,52 +23,12 @@ Route::post('/logout', [AuthController::class, 'logout']);
 Route::get('/register', [AuthController::class, 'showRegisterForm']);
 Route::post('/register', [AuthController::class, 'register']);
 
-Route::get('/owner', function () {
-    if (!Auth::check()) {
-        return redirect('/login')->with('error', 'Vui lòng đăng nhập để đăng ký xe');
-    }
-    return view('owner.index');
-});
-
-Route::post('/owner', function (Request $req) {
-    if (!Auth::check()) {
-        return redirect('/login')->with('error', 'Vui lòng đăng nhập để đăng ký xe');
-    }
-    $userId = Auth::id();
-    $validated = $req->validate([
-        'model' => 'required|string|min:2',
-        'address' => 'required|string|min:2',
-        'location' => 'required|string',
-        'price' => 'required|integer|min:1',
-        'seat' => 'required|integer|min:4',
-        'transmission' => 'required|in:AT,MT',
-        'fuel' => 'required|in:Xăng,Dầu,Điện',
-        'images' => 'required|array|size:4',
-        'images.*' => 'file|mimes:jpg,jpeg,png,webp|max:5120',
-        'desc' => 'required|string|min:10',
-    ]);
-    $slug = Str::slug($validated['model']).'-'.Str::random(6);
-    $paths = [];
-    foreach ($req->file('images') as $file) {
-        $paths[] = $file->store('cars', 'public');
-    }
-    $car = Car::create([
-        'model' => $validated['model'],
-        'address' => $validated['address'],
-        'location' => $validated['location'],
-        'price' => (string)$validated['price'],
-        'images' => $paths,
-        'desc' => $validated['desc'],
-        'trip' => 0,
-        'transmission' => $validated['transmission'],
-        'seat' => (int)$validated['seat'],
-        'fuel' => $validated['fuel'],
-        'consumed' => '—',
-        'owner_id' => $userId,
-        'slug' => $slug,
-    ]);
-    return redirect('/car/'.$car->slug)->with('success', 'Đã đăng ký xe thành công');
-});
+// Owner routes - sử dụng OwnerController
+Route::get('/owner', [OwnerController::class, 'create']);
+Route::post('/owner', [OwnerController::class, 'store']);
+Route::get('/owner/cars/{car}/edit', [OwnerController::class, 'edit']);
+Route::put('/owner/cars/{car}', [OwnerController::class, 'update']);
+Route::delete('/owner/cars/{car}', [OwnerController::class, 'destroy']);
 
 Route::get("/filter/{slug}", function ($slug) {
     $query = Car::where("location", $slug)->where('status','approved');
@@ -182,70 +143,6 @@ Route::post('/bookings/{booking}/cancel', function (Booking $booking) {
     return redirect('/my-trips')->with('success', 'Đã hủy chuyến thành công');
 });
 
-Route::get('/owner/cars/{car}/edit', function (Car $car) {
-    if (!Auth::check()) {
-        return redirect('/login')->with('error', 'Vui lòng đăng nhập');
-    }
-    $userId = Auth::id();
-    if ($car->owner_id !== $userId) {
-        return redirect('/my-trips')->with('error', 'Bạn không thể sửa xe của người khác');
-    }
-    return view('owner.index', compact('car'));
-});
-
-Route::put('/owner/cars/{car}', function (Request $req, Car $car) {
-    if (!Auth::check()) {
-        return redirect('/login')->with('error', 'Vui lòng đăng nhập');
-    }
-    $userId = Auth::id();
-    if ($car->owner_id !== $userId) {
-        return redirect('/my-trips')->with('error', 'Bạn không thể sửa xe của người khác');
-    }
-    $validated = $req->validate([
-        'model' => 'required|string|min:2',
-        'address' => 'required|string|min:2',
-        'location' => 'required|string',
-        'price' => 'required|integer|min:1',
-        'seat' => 'required|integer|min:4',
-        'transmission' => 'required|in:AT,MT',
-        'fuel' => 'required|in:Xăng,Dầu,Điện',
-        'images' => 'nullable|array',
-        'images.*' => 'file|mimes:jpg,jpeg,png,webp|max:5120',
-        'desc' => 'required|string|min:10',
-    ]);
-    $paths = null;
-    if ($req->hasFile('images')) {
-        $paths = [];
-        foreach ($req->file('images') as $file) {
-            $paths[] = $file->store('cars', 'public');
-        }
-    }
-    $car->model = $validated['model'];
-    $car->address = $validated['address'];
-    $car->location = $validated['location'];
-    $car->price = (string)$validated['price'];
-    if ($paths !== null) {
-        $car->images = $paths;
-    }
-    $car->desc = $validated['desc'];
-    $car->transmission = $validated['transmission'];
-    $car->seat = (int)$validated['seat'];
-    $car->fuel = $validated['fuel'];
-    $car->save();
-    return redirect('/car/'.$car->slug)->with('success', 'Đã cập nhật xe thành công');
-});
-
-Route::delete('/owner/cars/{car}', function (Car $car) {
-    if (!Auth::check()) {
-        return redirect('/login')->with('error', 'Vui lòng đăng nhập');
-    }
-    $userId = Auth::id();
-    if ($car->owner_id !== $userId) {
-        return redirect('/my-trips')->with('error', 'Bạn không thể xóa xe của người khác');
-    }
-    $car->delete();
-    return redirect('/my-trips')->with('success', 'Đã xóa xe thành công');
-});
 // Admin auth
 Route::get('/admin/login', function () {
     return view('admin.auth.login');

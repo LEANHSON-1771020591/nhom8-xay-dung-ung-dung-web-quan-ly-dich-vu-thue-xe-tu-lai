@@ -95,8 +95,8 @@
                                     <p><span class="font-medium">Giá mỗi ngày:</span> {{ number_format((int)$car->price, 0, ',', '.') }}K</p>
                                 </div>
                                 <div class="mt-3 flex items-center space-x-2">
-                                    <a href="/owner/cars/{{ $car->id }}/edit" class="inline-block flex-1 text-white font-medium py-2 rounded-lg text-center hover:opacity-90" style="background:#333">Sửa</a>
-                                    <form method="POST" action="/owner/cars/{{ $car->id }}" class="flex-1">
+                                    <a href="{{ url('/owner/cars/' . $car->id . '/edit') }}" class="inline-block flex-1 text-white font-medium py-2 rounded-lg text-center hover:opacity-90" style="background:#333">Sửa</a>
+                                    <form method="POST" action="{{ url('/owner/cars/' . $car->id) }}" class="flex-1">
                                         @csrf
                                         @method('DELETE')
                                         <button type="submit" class="w-full text-white font-medium py-2 rounded-lg hover:opacity-90" style="background:#bc4749">Xóa</button>

@@ -14,7 +14,7 @@
         <h1 class="text-2xl sm:text-3xl font-bold text-gray-900 mb-6">Trở thành chủ xe</h1>
         <div class="bg-white border border-gray-200 rounded-xl p-6 shadow-sm">
             @php($isEdit = isset($car))
-            <form method="POST" action="{{ $isEdit ? '/owner/cars/'.$car->id : '/owner' }}" enctype="multipart/form-data" class="grid grid-cols-1 gap-4">
+            <form method="POST" action="{{ $isEdit ? url('/owner/cars/' . $car->id) : url('/owner') }}" enctype="multipart/form-data" class="grid grid-cols-1 gap-4">
                 @csrf
                 @if($isEdit)
                     @method('PUT')
