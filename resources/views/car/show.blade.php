@@ -200,7 +200,7 @@
                             <div class="text-sm text-red-600 font-medium mb-3">Xe đang được thuê</div>
                             <button class="w-full bg-gray-300 text-gray-600 text-lg font-semibold p-3 rounded-lg cursor-not-allowed" disabled>Không thể thuê</button>
                         @else
-                            <form method="POST" action="/book/{{ $car->id }}" class="space-y-3">
+                            <form method="POST" action="{{ url('/book/' . $car->id) }}" class="space-y-3">
                                 @csrf
                                 <div>
                                     <label class="block text-sm text-gray-600 mb-1">Ngày kết thúc</label>

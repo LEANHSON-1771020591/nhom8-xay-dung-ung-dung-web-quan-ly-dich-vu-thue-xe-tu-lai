@@ -45,7 +45,7 @@
                                     </svg>
                                     <span class="truncate">{{ $booking->car->address }}</span>
                                 </div>
-                                <form method="POST" action="/bookings/{{ $booking->id }}/cancel" class="mt-3">
+                                <form method="POST" action="{{ url('/bookings/' . $booking->id . '/cancel') }}" class="mt-3">
                                     @csrf
                                     <button type="submit" class="w-full bg-red-500 text-white font-medium py-2 rounded-lg hover:bg-red-600">Hủy chuyến</button>
                                 </form>

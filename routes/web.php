@@ -11,6 +11,7 @@ use Carbon\Carbon;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\OwnerController;
+use App\Http\Controllers\TripController;
 
 // Home routes - sử dụng HomeController
 Route::get('/', [HomeController::class, 'index']);
@@ -29,6 +30,11 @@ Route::post('/owner', [OwnerController::class, 'store']);
 Route::get('/owner/cars/{car}/edit', [OwnerController::class, 'edit']);
 Route::put('/owner/cars/{car}', [OwnerController::class, 'update']);
 Route::delete('/owner/cars/{car}', [OwnerController::class, 'destroy']);
+
+// Trip routes - sử dụng TripController
+Route::get('/my-trips', [TripController::class, 'index']);
+Route::post('/book/{car}', [TripController::class, 'store']);
+Route::post('/bookings/{booking}/cancel', [TripController::class, 'cancel']);
 
 Route::get("/filter/{slug}", function ($slug) {
     $query = Car::where("location", $slug)->where('status','approved');
@@ -68,80 +74,6 @@ Route::get("/car/{slug}", function ($slug) {
     return view("car.show", compact("car"));
 });
 
-Route::get('/my-trips', function () {
-    if (!Auth::check()) {
-        return redirect('/login')->with('error', 'Vui lòng đăng nhập để xem chuyến của bạn');
-    }
-    $userId = Auth::id();
-    $bookings = Booking::with('car')->where('user_id', $userId)->orderBy('start_date', 'desc')->get();
-    $today = Carbon::today()->toDateString();
-    $ongoing = $bookings->filter(fn($b) => $b->status === 'confirmed' && $b->start_date <= $today && $b->end_date >= $today);
-    $past = $bookings->filter(fn($b) => $b->end_date < $today || $b->status === 'cancelled');
-    $dailyTotal = $ongoing->sum('daily_price');
-    $ownedCars = Car::where('owner_id', $userId)->get();
-    return view('trips.index', compact('bookings', 'dailyTotal', 'ongoing', 'past', 'ownedCars'));
-});
-
-Route::post('/book/{car}', function (Car $car) {
-    if (!Auth::check()) {
-        return redirect()->back()->with('error', 'Vui lòng đăng nhập để thuê xe');
-    }
-    $userId = Auth::id();
-    if ($car->owner_id == $userId) {
-        return redirect()->back()->with('error', 'Bạn không thể thuê xe của chính mình');
-    }
-    $start = Carbon::today()->toDateString();
-    $end = request('end_date');
-    if (!$end) {
-        return redirect()->back()->with('error', 'Vui lòng chọn ngày kết thúc');
-    }
-    if (!preg_match('/^\d{4}-\d{2}-\d{2}$/', $end)) {
-        return redirect()->back()->with('error', 'Ngày kết thúc không hợp lệ');
-    }
-    try {
-        $endDate = Carbon::createFromFormat('Y-m-d', $end);
-    } catch (\Exception $e) {
-        return redirect()->back()->with('error', 'Ngày kết thúc không hợp lệ');
-    }
-    if ($endDate->lt(Carbon::today())) {
-        return redirect()->back()->with('error', 'Ngày kết thúc phải từ hôm nay trở đi');
-    }
-    $maxDate = Carbon::today()->addYears(2);
-    if ($endDate->gt($maxDate)) {
-        return redirect()->back()->with('error', 'Ngày kết thúc không được quá 2 năm kể từ hôm nay');
-    }
-    $end = $endDate->toDateString();
-    $overlap = Booking::where('car_id', $car->id)
-        ->where('status', 'confirmed')
-        ->where('start_date', '<=', $end)
-        ->where('end_date', '>=', $start)
-        ->exists();
-    if ($overlap) {
-        return redirect()->back()->with('error', 'Xe đang được thuê trong khoảng thời gian đã chọn');
-    }
-    Booking::create([
-        'user_id' => $userId,
-        'car_id' => $car->id,
-        'start_date' => $start,
-        'end_date' => $end,
-        'daily_price' => (int)$car->price,
-        'status' => 'confirmed',
-    ]);
-    return redirect('/my-trips')->with('success', 'Đã đặt xe thành công');
-});
-
-Route::post('/bookings/{booking}/cancel', function (Booking $booking) {
-    if (!Auth::check()) {
-        return redirect('/login')->with('error', 'Vui lòng đăng nhập');
-    }
-    $userId = Auth::id();
-    if ($booking->user_id !== $userId) {
-        return redirect()->back()->with('error', 'Không thể hủy chuyến của người khác');
-    }
-    $booking->status = 'cancelled';
-    $booking->save();
-    return redirect('/my-trips')->with('success', 'Đã hủy chuyến thành công');
-});
 
 // Admin auth
 Route::get('/admin/login', function () {
