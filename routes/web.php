@@ -9,10 +9,18 @@ use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use Carbon\Carbon;
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\AuthController;
 
 // Home routes - sử dụng HomeController
 Route::get('/', [HomeController::class, 'index']);
 Route::get('/about', [HomeController::class, 'about']);
+
+// Auth routes - sử dụng AuthController
+Route::get('/login', [AuthController::class, 'showLoginForm']);
+Route::post('/login', [AuthController::class, 'login']);
+Route::post('/logout', [AuthController::class, 'logout']);
+Route::get('/register', [AuthController::class, 'showRegisterForm']);
+Route::post('/register', [AuthController::class, 'register']);
 
 Route::get('/owner', function () {
     if (!Auth::check()) {
@@ -59,51 +67,6 @@ Route::post('/owner', function (Request $req) {
         'slug' => $slug,
     ]);
     return redirect('/car/'.$car->slug)->with('success', 'Đã đăng ký xe thành công');
-});
-
-Route::get('/login', function () {
-    return view('auth.login');
-});
-
-Route::post('/login', function (Request $req) {
-    $credentials = $req->only('email', 'password');
-    if (!Auth::attempt($credentials)) {
-        return redirect()->back()->with('error', 'Thông tin đăng nhập không đúng');
-    }
-    if (Auth::user()->is_locked ?? false) {
-        Auth::logout();
-        return redirect()->back()->with('error', 'Tài khoản đã bị khóa');
-    }
-    $req->session()->regenerate();
-    return redirect('/my-trips');
-});
-
-Route::post('/logout', function (Request $req) {
-    Auth::logout();
-    $req->session()->invalidate();
-    $req->session()->regenerateToken();
-    return redirect('/');
-});
-
-Route::get('/register', function () {
-    return view('auth.register');
-});
-
-Route::post('/register', function (Request $req) {
-    $req->validate([
-        'username' => 'required|string|min:2',
-        'email' => 'required|email|unique:users,email',
-        'password' => 'required|confirmed|min:6',
-    ]);
-    $user = User::create([
-        'name' => $req->input('username'),
-        'email' => $req->input('email'),
-        'password' => bcrypt($req->input('password')),
-        'avatar' => 'https://via.placeholder.com/80',
-        'slug' => Str::slug($req->input('username')),
-    ]);
-    Auth::login($user);
-    return redirect('/my-trips');
 });
 
 Route::get("/filter/{slug}", function ($slug) {

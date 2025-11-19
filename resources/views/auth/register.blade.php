@@ -14,7 +14,7 @@
             <img src="{{ asset('images/logos/logo.png') }}" alt="Logo" class="w-20 h-20 object-contain">
             <h1 class="mt-3 text-2xl font-bold text-gray-900">Đăng ký</h1>
         </div>
-        <form method="POST" action="/register" class="space-y-4">
+        <form method="POST" action="{{ url('/register') }}" class="space-y-4">
             @csrf
             <div>
                 <label class="block text-sm text-gray-600 mb-1">Username</label>
