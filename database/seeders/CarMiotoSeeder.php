@@ -13,14 +13,50 @@ class CarMiotoSeeder extends Seeder
     public function run(): void
     {
         $path = database_path('data/mioto_cars.json');
+        if (!File::exists($path)) {
+            return;
+        }
         $json = File::get($path);
         $items = collect(json_decode($json, true));
+        $seenIds = [];
 
-        $owners = User::where('role', 'owner')->pluck('id')->all();
-        if (empty($owners)) {
-            $owners = User::inRandomOrder()->take(100)->pluck('id')->all();
+        // Optional mapping file: {id, user_id, car_id, mioto_user_id, mioto_car_id}
+        $map = collect();
+        $mapPath = database_path('data/mioto_user_car.json');
+        if (File::exists($mapPath)) {
+            $map = collect(json_decode(File::get($mapPath), true));
         }
-        $ownerCount = count($owners);
+
+        // Load users reference from mioto_users.json to resolve names
+        $usersRef = collect();
+        $usersPath = database_path('data/mioto_users.json');
+        if (File::exists($usersPath)) {
+            $usersRef = collect(json_decode(File::get($usersPath), true));
+        }
+
+        // Ensure owners exist; if not, import from usersRef
+        if (User::where('role','owner')->count() === 0 && $usersRef->isNotEmpty()) {
+            $usersRef->each(function($u){
+                $name = $u['username'] ?? ($u['name'] ?? 'Người dùng');
+                $avatar = $u['user_img'] ?? ($u['avatar'] ?? 'https://via.placeholder.com/80');
+                $slug = \Illuminate\Support\Str::slug($name);
+                $identifier = $u['mioto_user_id'] ?? ($u['id'] ?? \Illuminate\Support\Str::random(6));
+                $email = 'mioto_'.$slug.'_'.$identifier.'@import.local';
+                if (!User::where('email',$email)->exists()) {
+                    User::create([
+                        'name' => $name,
+                        'email' => $email,
+                        'password' => bcrypt('secret123'),
+                        'avatar' => $avatar,
+                        'slug' => $slug,
+                        'role' => 'owner',
+                        'is_locked' => false,
+                    ]);
+                }
+            });
+        }
+        $owners = User::where('role', 'owner')->get(['id','email','slug','name']);
+        $ownerCount = $owners->count();
         $i = 0;
 
         $mapCity = function ($loc) {
@@ -64,8 +100,44 @@ class CarMiotoSeeder extends Seeder
             return (string) ($n ?: '0');
         };
 
-        $items->each(function ($car) use (&$i, $owners, $ownerCount, $mapCity, $mapTransmission, $mapFuel, $parseSeat, $parseTrip, $parsePrice) {
-            $ownerId = $owners[$i % max(1, $ownerCount)];
+        $items->each(function ($car) use (&$i, $owners, $ownerCount, $mapCity, $mapTransmission, $mapFuel, $parseSeat, $parseTrip, $parsePrice, $map, $usersRef, &$seenIds) {
+            $ownerId = null;
+            $srcId = $car['mioto_car_id'] ?? ($car['id'] ?? null);
+            if ($srcId !== null) {
+                if (isset($seenIds[$srcId])) {
+                    return;
+                }
+            }
+            // Resolve owner from mapping file (car.id -> user_id) and usersRef
+            $mapRow = $map->first(function($m) use ($car){
+                return ($m['car_id'] ?? null) === ($car['id'] ?? null);
+            });
+            if ($mapRow) {
+                $userIdInJson = $mapRow['user_id'] ?? null;
+                $userRow = $usersRef->first(function($u) use ($userIdInJson){
+                    return ($u['id'] ?? null) === $userIdInJson;
+                });
+                $owner = null;
+                if ($userRow) {
+                    $owner = $owners->firstWhere('name', $userRow['username'] ?? $userRow['name'] ?? null);
+                    if (!$owner) {
+                        $owner = $owners->firstWhere('slug', \Illuminate\Support\Str::slug($userRow['username'] ?? $userRow['name'] ?? ''));
+                    }
+                }
+                $ownerId = $owner?->id;
+            }
+            // Fallback: use car.mioto_user_id matching email pattern created by MiotoUsersSeeder
+            if (!$ownerId && !empty($car['mioto_user_id'])) {
+                $slug = \Illuminate\Support\Str::slug($car['mioto_user_id']);
+                $owner = $owners->first(function($o) use ($car){
+                    return str_contains($o->email, (string)($car['mioto_user_id']));
+                });
+                $ownerId = $owner?->id;
+            }
+            // If still not resolved, skip creating this car to avoid fake linking
+            if (!$ownerId) {
+                return;
+            }
             $i++;
             $slug = Str::slug($car['model']).'-'.Str::random(6);
             Car::create([
@@ -84,6 +156,7 @@ class CarMiotoSeeder extends Seeder
                 'slug' => $slug,
                 'status' => 'approved',
             ]);
+            if ($srcId !== null) $seenIds[$srcId] = true;
         });
     }
 }

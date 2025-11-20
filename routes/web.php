@@ -1,17 +1,13 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use App\Models\Car;
-use App\Models\Booking;
-use App\Models\User;
-use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Str;
-use Illuminate\Http\Request;
-use Carbon\Carbon;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\OwnerController;
 use App\Http\Controllers\TripController;
+use App\Http\Controllers\CarController;
+use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\UserController;
 use App\Http\Controllers\Admin\AdminAuthController;
 use App\Http\Controllers\Admin\AdminDashboardController;
 use App\Http\Controllers\Admin\AdminCarController;
@@ -41,43 +37,10 @@ Route::get('/my-trips', [TripController::class, 'index']);
 Route::post('/book/{car}', [TripController::class, 'store']);
 Route::post('/bookings/{booking}/cancel', [TripController::class, 'cancel']);
 
-Route::get("/filter/{slug}", function ($slug) {
-    $query = Car::where("location", $slug)->where('status','approved');
-    $min = request('min_price');
-    $max = request('max_price');
-    $transmission = request('transmission');
-    $seat = request('seat');
-    $fuel = request('fuel');
-    $model = request('model');
-    if ($min !== null) {
-        $query->whereRaw('CAST(price AS UNSIGNED) >= ?', [(int)$min]);
-    }
-    if ($max !== null) {
-        $query->whereRaw('CAST(price AS UNSIGNED) <= ?', [(int)$max]);
-    }
-    if ($transmission !== null && $transmission !== '') {
-        $query->where('transmission', $transmission);
-    }
-    if ($seat !== null && $seat !== '') {
-        $query->where('seat', (int)$seat);
-    }
-    if ($fuel !== null && $fuel !== '') {
-        $query->where('fuel', $fuel);
-    }
-    if ($model !== null && $model !== '') {
-        $query->where('model', 'like', '%'.$model.'%');
-    }
-    $cars = $query->get();
-    return view("category.index", compact(["slug", "cars"]));
-});
+Route::get('/filter/{slug}', [CategoryController::class, 'filter']);
 
-Route::get("/car/{slug}", function ($slug) {
-    $car = Car::where("slug", $slug)->first();
-    if (!$car) {
-        return redirect('/')->with('error', 'Xe không tồn tại');
-    }
-    return view("car.show", compact("car"));
-});
+Route::get('/car/{slug}', [CarController::class, 'show']);
+Route::get('/users/{slug}', [UserController::class, 'show']);
 
 
 // Admin routes

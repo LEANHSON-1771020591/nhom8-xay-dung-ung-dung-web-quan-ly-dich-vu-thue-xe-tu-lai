@@ -20,7 +20,7 @@
             <div class="w-[300px] h-[2px] bg-white my-4"></div>
             <p class="text-white text-[22px] font-semibold w-4/5 lg:w-[650px] overflow-hidden whitespace-nowrap animate-[typing-text_4s_steps(77,_end)_forwards,done-text_0s_5s_forwards]">
                 Trải nghiệm sự khác biệt từ
-                <span class="text-orange-500 font-semibold">hơn 10.000</span>
+                <span class="text-green-600 font-semibold">hơn 10.000</span>
                 xe gia đình đời mới khắp Việt Nam
             </p>
         </div>
@@ -80,7 +80,7 @@
         <div class="max-w-[1200px] mx-auto px-5 text-center">
             <p class="text-[48px] font-medium text-gray-800 mb-2">Chương Trình Khuyến Mãi</p>
             <p class="text-[24px] text-gray-700">
-                Nhận nhiều ưu đãi hấp dẫn từ <span class="text-orange-500 font-bold">Vato</span>
+                Nhận nhiều ưu đãi hấp dẫn từ <span class="text-green-600 font-bold">Vato</span>
             </p>
 
             <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5 mt-[60px]">
@@ -285,7 +285,7 @@
             <div class="absolute inset-0 z-10 flex flex-col justify-end p-6 sm:p-8 text-white drop-shadow">
                 <p class="text-2xl font-semibold">Xe đã sẵn sàng.<br />Bắt đầu hành trình ngay!</p>
                 <p class="mt-2 max-w-md">Tự tay cầm lái chiếc xe bạn yêu thích cho hành trình thêm hứng khởi.</p>
-                <a href="{{ url('/') }}" class="inline-flex items-center justify-center w-fit mt-4 bg-green-500 hover:bg-green-600 text-white font-medium px-5 py-2 text-sm rounded-md shadow-md">Thuê xe tự lái</a>
+                <a href="{{ url('/') }}" class="inline-flex items-center justify-center w-fit mt-4 bg-green-500 hover:bg-green-600 text-white font-medium px-5 py-2 text-sm rounded-md shadow-md">Thuê xe ngay</a>
             </div>
         </div>
 
@@ -295,7 +295,7 @@
             <div class="absolute inset-0 z-10 flex flex-col justify-end items-end p-6 sm:p-8 text-white drop-shadow text-right">
                 <p class="text-2xl font-semibold">Tài xế của bạn đã đến!</p>
                 <p class="mt-2 ml-auto max-w-md">Chuyến đi thêm thú vị cùng các bác tài xế trên Vato.</p>
-                <a href="{{ url('/filter/ho-chi-minh') }}" class="inline-block mt-4 bg-green-500 hover:bg-green-600 text-white font-medium px-6 py-3 text-base rounded-lg shadow-md">Thuê xe có tài xế</a>
+                <a href="{{ url('/filter/ho-chi-minh') }}" class="inline-flex items-center justify-center w-fit mt-4 bg-green-500 hover:bg-green-600 text-white font-medium px-5 py-2 text-sm rounded-md shadow-md">Thuê xe ngay</a>
             </div>
         </div>
     </div>
@@ -314,7 +314,7 @@
             <img src="https://www.mioto.vn/static/media/cho_thue_xe_co_taigia_re_tphcm.12455eba.svg"
                 alt="Lái xe an toàn" class="w-[240px] h-[240px] object-contain mx-auto mb-[20px]">
             <div class="text-[24px] text-gray-800 leading-relaxed font-bold">
-                <span class="inline text-[24px] font-semibold text-orange-500 mr-[10px]">01</span>
+                <span class="inline text-[24px] font-semibold text-green-600 mr-[10px]">01</span>
                 Đặt xe trên app/web Vito
             </div>
         </div>
@@ -323,7 +323,7 @@
             <img src="https://www.mioto.vn/static/media/gia_thue_xe_7cho_tai_tphcm.9455973a.svg"
                 alt="Lái xe an toàn" class="w-[240px] h-[240px] object-contain mx-auto mb-[20px]">
             <div class="text-[24px] text-gray-800 leading-relaxed font-bold">
-                <span class="inline text-[24px] font-semibold text-orange-500 mr-[10px]">02</span>
+                <span class="inline text-[24px] font-semibold text-green-600 mr-[10px]">02</span>
                 Nhận xe
             </div>
         </div>
@@ -332,7 +332,7 @@
             <img src="https://www.mioto.vn/static/media/gia_thue_xe_7cho_tai_hanoi.0834bed8.svg"
                 alt="Lái xe an toàn" class="w-[240px] h-[240px] object-contain mx-auto mb-[20px]">
             <div class="text-[24px] text-gray-800 leading-relaxed font-bold">
-                <span class="inline text-[24px] font-semibold text-orange-500 mr-[10px]">03</span>
+                <span class="inline text-[24px] font-semibold text-green-600 mr-[10px]">03</span>
                 Bắt đầu hành trình
             </div>
         </div>
@@ -341,7 +341,7 @@
             <img src="https://www.mioto.vn/static/media/gia_thue_xe_4cho_tai_tphcm.9dcd3930.svg"
                 alt="Lái xe an toàn" class="w-[240px] h-[240px] object-contain mx-auto mb-[20px]">
             <div class="text-[24px] text-gray-800 leading-relaxed font-bold">
-                <span class="inline text-[24px] font-semibold text-orange-500 mr-[10px]">04</span>
+                <span class="inline text-[24px] font-semibold text-green-600 mr-[10px]">04</span>
                 Trả xe & kết thúc chuyến đi
             </div>
         </div>
@@ -370,10 +370,10 @@
                 Vato kết nối khách hàng có nhu cầu thuê xe với hàng ngàn chủ xe ô tô ở TP.HCM, Hà Nội & các tỉnh
                 thành khác. Vato hướng đến việc xây dựng cộng đồng người dùng ô tô văn minh & uy tín tại Việt Nam.
             </p>
-            <button
-                class="mx-auto mt-6 bg-orange-500 text-white border-0 px-[30px] py-[15px] text-[16px] font-semibold rounded-[8px] cursor-pointer transition-all duration-300 transform hover:bg-orange-400 hover:-translate-y-[2px] hover:shadow-lg">
-                Tìm hiểu thêm
-            </button>
+            <a href="{{ url('/about') }}"
+                class="mx-auto mt-6 bg-green-500 text-white border-0 px-[30px] py-[15px] text-[16px] font-semibold rounded-[8px] cursor-pointer transition-all duration-300 transform hover:bg-green-600 hover:-translate-y-[2px] hover:shadow-lg">
+                Về Vato
+            </a>
         </div>
     </div>
 </section>
@@ -396,10 +396,10 @@
                 Đăng ký trở thành đối tác của chúng tôi ngay hôm nay để gia tăng thu nhập hàng tháng.
             </p>
             <div class="flex gap-[15px] flex-wrap justify-center">
-                <button
-                    class="min-w-[150px] px-[30px] py-[15px] text-[16px] font-semibold rounded-[6px] bg-blue-500 text-white border-2 border-blue-500 transition-all duration-300 hover:bg-[#357ABD] hover:border-[#357ABD] hover:-translate-y-[2px] hover:shadow-lg">
-                    Đăng ký xe
-                </button>
+                <a href="{{ url('/owner') }}"
+                    class="inline-block min-w-[150px] px-[30px] py-[15px] text-[16px] font-semibold rounded-[6px] bg-blue-500 text-white border-2 border-blue-500 transition-all duration-300 hover:bg-[#357ABD] hover:border-[#357ABD] hover:-translate-y-[2px] hover:shadow-lg">
+                    Trở thành chủ xe
+                </a>
             </div>
         </div>
         <div class="text-center">

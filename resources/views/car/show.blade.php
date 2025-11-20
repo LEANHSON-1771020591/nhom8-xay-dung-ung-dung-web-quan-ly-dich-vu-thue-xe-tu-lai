@@ -45,7 +45,7 @@
                     <p class="text-xl font-semibold text-gray-800">Đặc điểm</p>
                     <div class="mt-6 flex justify-between items-center">
                         <div class="flex items-center gap-4">
-                            <div class="text-orange-500">
+                            <div class="text-green-600">
                                 <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8" viewBox="0 0 20 20" fill="currentColor">
                                     <path fill-rule="evenodd" d="M11.49 3.17c-.38-1.56-2.6-1.56-2.98 0a1.532 1.532 0 01-2.286.948c-1.372-.836-2.942.734-2.106 2.106.54.886.061 2.042-.947 2.287-1.561.379-1.561 2.6 0 2.978a1.532 1.532 0 01.947 2.287c-.836 1.372.734 2.942 2.106 2.106a1.532 1.532 0 012.287.947c.379 1.561 2.6 1.561 2.978 0a1.532 1.532 0 012.287-.947c1.372.836 2.942-.734-2.106-2.106a1.532 1.532 0 01-.947-2.287c1.561-.379 1.561-2.6 0-2.978a1.532 1.532 0 01-.947-2.287c.836-1.372-.734-2.942-2.106-2.106a1.532 1.532 0 01-2.287-.947zM10 13a3 3 0 100-6 3 3 0 000 6z" clip-rule="evenodd" />
                                 </svg>
@@ -57,7 +57,7 @@
                         </div>
 
                         <div class="flex items-center gap-4">
-                            <div class="text-orange-500">
+                            <div class="text-green-600">
                                 <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8" viewBox="0 0 20 20" fill="currentColor">
                                     <path fill-rule="evenodd" d="M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z" clip-rule="evenodd" />
                                 </svg>
@@ -69,7 +69,7 @@
                         </div>
 
                         <div class="flex items-center gap-4">
-                            <div class="text-orange-500">
+                            <div class="text-green-600">
                                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" class="h-8 w-8" fill="currentColor">
                                     <path d="M12 2.5C12 2.5 6 8.5 6 14.5C6 17.5376 8.46243 20 11.5 20H12.5C15.5376 20 18 17.5376 18 14.5C18 8.5 12 2.5 12 2.5Z"></path>
                                 </svg>
@@ -81,7 +81,7 @@
                         </div>
 
                         <div class="flex items-center gap-4">
-                            <div class="text-orange-500">
+                            <div class="text-green-600">
                                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-8 h-8">
                                     <path fill-rule="evenodd" d="M14.615 1.595a.75.75 0 0 1 .359.852L12.982 9.75h3.268a.75.75 0 0 1 .565 1.263l-8.25 11.25a.75.75 0 0 1-1.282-.577l1.992-7.967H7.5a.75.75 0 0 1-.565-1.263l8.25-11.25a.75.75 0 0 1 .923-.288Z" clip-rule="evenodd" />
                                 </svg>
@@ -206,7 +206,7 @@
                                     <label class="block text-sm text-gray-600 mb-1">Ngày kết thúc</label>
                                     <input type="date" name="end_date" class="w-full border border-gray-300 rounded-lg px-3 py-2" required min="{{ \Carbon\Carbon::today()->toDateString() }}">
                                 </div>
-                                <button type="submit" class="w-full bg-orange-500 text-white text-lg font-semibold p-3 rounded-lg cursor-pointer hover:bg-orange-600 transition-colors">
+                                <button type="submit" class="w-full bg-green-500 text-white text-lg font-semibold p-3 rounded-lg cursor-pointer hover:bg-green-600 transition-colors">
                                     Thuê xe ngay
                                 </button>
                             </form>
@@ -221,6 +221,22 @@
                 </div>
             </div>
         </div>
+    </div>
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mt-8">
+        @php($owner = $car->user)
+        @if($owner)
+        <div class="border-t border-gray-200 pt-6">
+            <div class="flex items-center gap-4">
+                <img src="{{ $owner->avatar }}" alt="{{ $owner->name }}" class="w-14 h-14 rounded-full object-cover">
+                <div>
+                    <p class="text-xl font-semibold text-gray-900">{{ $owner->name }}</p>
+                    @php($ownerTrips = \App\Models\Booking::whereHas('car', fn($q)=>$q->where('owner_id',$owner->id))->where('status','confirmed')->count())
+                    <p class="text-sm text-gray-600">{{ $ownerTrips }} chuyến</p>
+                    <a href="{{ url('/users/'.$owner->slug) }}" class="mt-2 inline-block text-green-600 hover:text-green-700 font-medium">Xem trang người dùng</a>
+                </div>
+            </div>
+        </div>
+        @endif
     </div>
 </body>
 </html>

@@ -43,7 +43,7 @@
         <div class="grid grid-cols-1 sm:grid-cols-3 gap-6 mt-8">
             <div class="bg-white border border-gray-200 rounded-xl p-5">
                 <div class="flex items-center space-x-2 text-gray-600">
-                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" class="h-5 w-5 text-orange-600" fill="currentColor"><path d="M12 7v5h5v2h-7V7h2Zm0-5a10 10 0 1 0 10 10A10 10 0 0 0 12 2Z"/></svg>
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" class="h-5 w-5 text-green-600" fill="currentColor"><path d="M12 7v5h5v2h-7V7h2Zm0-5a10 10 0 1 0 10 10A10 10 0 0 0 12 2Z"/></svg>
                     <p>Booking hôm nay</p>
                 </div>
                 <p class="mt-2 text-2xl font-bold">{{ $dailyBookings }}</p>

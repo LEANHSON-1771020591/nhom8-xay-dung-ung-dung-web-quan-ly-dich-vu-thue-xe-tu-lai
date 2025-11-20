@@ -44,6 +44,9 @@ return new class extends Migration {
 
     private function indexExists(string $table, string $index): bool
     {
+        if (DB::getDriverName() !== 'mysql') {
+            return false;
+        }
         $res = DB::select("SELECT 1 FROM information_schema.statistics WHERE table_schema = DATABASE() AND table_name = ? AND index_name = ? LIMIT 1", [$table, $index]);
         return !empty($res);
     }
