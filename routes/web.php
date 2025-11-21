@@ -13,6 +13,7 @@ use App\Http\Controllers\Admin\AdminDashboardController;
 use App\Http\Controllers\Admin\AdminCarController;
 use App\Http\Controllers\Admin\AdminUserController;
 use App\Http\Controllers\Admin\AdminBookingController;
+use App\Http\Controllers\Admin\AdminBlogController;
 
 // Home routes - sử dụng HomeController
 Route::get('/', [HomeController::class, 'index']);
@@ -64,3 +65,11 @@ Route::put('/admin/users/{user}', [AdminUserController::class, 'update']);
 Route::post('/admin/users/{user}/toggle-role', [AdminUserController::class, 'toggleRole']);
 
 Route::get('/admin/bookings', [AdminBookingController::class, 'index']);
+
+// Admin blogs CRUD
+Route::get('/admin/blogs', [AdminBlogController::class, 'index']);
+Route::get('/admin/blogs/create', [AdminBlogController::class, 'create']);
+Route::post('/admin/blogs', [AdminBlogController::class, 'store']);
+Route::get('/admin/blogs/{blog}/edit', [AdminBlogController::class, 'edit']);
+Route::put('/admin/blogs/{blog}', [AdminBlogController::class, 'update']);
+Route::delete('/admin/blogs/{blog}', [AdminBlogController::class, 'destroy']);

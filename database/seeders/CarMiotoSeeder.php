@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\File;
 use Illuminate\Support\Str;
 use App\Models\Car;
 use App\Models\User;
+use App\Models\Category;
 
 class CarMiotoSeeder extends Seeder
 {
@@ -112,14 +113,9 @@ class CarMiotoSeeder extends Seeder
             return (string) ($n ?: '0');
         };
 
-        $items->each(function ($car) use (&$i, $owners, $ownerCount, $mapCity, $mapTransmission, $mapFuel, $parseSeat, $parseTrip, $parsePrice, $map, $usersRef, &$seenIds) {
+        $items->each(function ($car) use (&$i, $owners, $ownerCount, $mapCity, $mapTransmission, $mapFuel, $parseSeat, $parseTrip, $parsePrice, $map, $usersRef, $genericOwner) {
             $ownerId = null;
             $srcId = $car['mioto_car_id'] ?? ($car['id'] ?? null);
-            if ($srcId !== null) {
-                if (isset($seenIds[$srcId])) {
-                    return;
-                }
-            }
             // Resolve owner from mapping file (car.id -> user_id) and usersRef
             $mapRow = $map->first(function($m) use ($car){
                 return ($m['car_id'] ?? null) === ($car['id'] ?? null);
@@ -169,13 +165,18 @@ class CarMiotoSeeder extends Seeder
                 }
             }
             $i++;
-            $slug = Str::slug($car['model']).'-'.Str::random(6);
-            Car::create([
-                'model' => $car['model'],
-                'address' => $car['address'],
-                'location' => $mapCity($car['location']),
-                'price' => $parsePrice($car['price']),
-                'images' => $car['images'],
+            $carIdPart = $srcId ? (string)$srcId : Str::random(6);
+            $slug = Str::slug($car['model']).'-'.$carIdPart.'-'.Str::random(4);
+            // đảm bảo không trùng slug
+            while (Car::where('slug', $slug)->exists()) {
+                $slug = Str::slug($car['model']).'-'.$carIdPart.'-'.Str::random(4);
+            }
+            $carRow = Car::create([
+                'model' => $car['model'] ?? 'Unknown Model',
+                'address' => $car['address'] ?? '—',
+                'location' => $mapCity($car['location'] ?? 'Unknown'),
+                'price' => $parsePrice($car['price'] ?? 0),
+                'images' => $car['images'] ?? [],
                 'desc' => $car['desc'] ?? '',
                 'trip' => $parseTrip($car['trip'] ?? 0),
                 'transmission' => $mapTransmission($car['transmission'] ?? ''),
@@ -186,7 +187,20 @@ class CarMiotoSeeder extends Seeder
                 'slug' => $slug,
                 'status' => 'approved',
             ]);
-            if ($srcId !== null) $seenIds[$srcId] = true;
+
+            $cats = [];
+            $cats[] = Str::slug($mapTransmission($car['transmission'] ?? 'AT'));
+            $cats[] = Str::slug($mapFuel($car['fuel'] ?? 'Xăng'));
+            $seatNum = $parseSeat($car['seat'] ?? 4);
+            if ($seatNum > 0) $cats[] = $seatNum.'-cho';
+            $catIds = [];
+            foreach (array_unique($cats) as $slugCat) {
+                $cat = Category::firstOrCreate(['slug' => $slugCat]);
+                $catIds[] = $cat->id;
+            }
+            if (!empty($catIds)) {
+                $carRow->categories()->syncWithoutDetaching($catIds);
+            }
         });
     }
 }

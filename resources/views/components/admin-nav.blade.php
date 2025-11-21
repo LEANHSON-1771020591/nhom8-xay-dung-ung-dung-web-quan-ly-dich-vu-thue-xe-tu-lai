@@ -20,6 +20,10 @@
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" class="h-5 w-5 text-gray-300" fill="currentColor"><path d="M16 11a4 4 0 1 0-4-4 4 4 0 0 0 4 4ZM4 20a6 6 0 0 1 12 0H4Zm0 0"/></svg>
             <span>Quản lý Người dùng</span>
         </a>
+        <a href="{{ url('/admin/blogs') }}" class="flex items-center space-x-2 px-3 py-2 rounded hover:bg-gray-800">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" class="h-5 w-5 text-gray-300" fill="currentColor"><path d="M6 2h12v4H6V2Zm-2 6h16v14H4V8Zm4 3h8v2H8v-2Zm0 4h8v2H8v-2Z"/></svg>
+            <span>Quản lý Blog</span>
+        </a>
     </nav>
     <div class="px-4 py-4 border-t border-gray-800">
         <form method="POST" action="{{ url('/admin/logout') }}">

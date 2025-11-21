@@ -35,6 +35,7 @@ class ResetDataSeeder extends Seeder
         $this->call([
             MiotoUsersSeeder::class,
             CarMiotoSeeder::class,
+            BlogSeeder::class,
         ]);
     }
 }

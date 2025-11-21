@@ -53,10 +53,11 @@ class AdminAuthController extends Controller
         $user = User::create([
             'name' => $request->input('username'),
             'email' => $request->input('email'),
-            'password' => bcrypt($request->input('password')),
+            'password' => $request->input('password'),
             'avatar' => 'https://via.placeholder.com/80',
             'slug' => Str::slug($request->input('username')),
             'role' => 'admin',
+            'is_locked' => false,
         ]);
         
         Auth::login($user);
