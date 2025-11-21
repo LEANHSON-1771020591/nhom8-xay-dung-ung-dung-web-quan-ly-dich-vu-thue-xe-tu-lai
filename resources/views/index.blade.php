@@ -53,16 +53,19 @@
                             role="listbox"
                             aria-labelledby="city-select-button">
 
-                            <li data-value="HoChiMinh" role="option" aria-selected="true" class="text-lg text-gray-800 font-medium cursor-pointer select-none relative py-2 pl-3 pr-9 hover:bg-green-100 hover:text-green-700 transition duration-150">
+                            <li data-value="ho-chi-minh" role="option" aria-selected="true" class="text-lg text-gray-800 font-medium cursor-pointer select-none relative py-2 pl-3 pr-9 hover:bg-green-100 hover:text-green-700 transition duration-150">
                                 TP. Hồ Chí Minh
                             </li>
-                            <li data-value="HaNoi" role="option" aria-selected="false" class="text-lg text-gray-800 font-medium cursor-pointer select-none relative py-2 pl-3 pr-9 hover:bg-green-100 hover:text-green-700 transition duration-150">
+                            <li data-value="ha-noi" role="option" aria-selected="false" class="text-lg text-gray-800 font-medium cursor-pointer select-none relative py-2 pl-3 pr-9 hover:bg-green-100 hover:text-green-700 transition duration-150">
                                 Hà Nội
                             </li>
-                            <li data-value="DaNang" role="option" aria-selected="false" class="text-lg text-gray-800 font-medium cursor-pointer select-none relative py-2 pl-3 pr-9 hover:bg-green-100 hover:text-green-700 transition duration-150">
+                            <li data-value="da-nang" role="option" aria-selected="false" class="text-lg text-gray-800 font-medium cursor-pointer select-none relative py-2 pl-3 pr-9 hover:bg-green-100 hover:text-green-700 transition duration-150">
                                 Đà Nẵng
                             </li>
-                            <li data-value="ThanhHoa" role="option" aria-selected="false" class="text-lg text-gray-800 font-medium cursor-pointer select-none relative py-2 pl-3 pr-9 hover:bg-green-100 hover:text-green-700 transition duration-150">
+                            <li data-value="hai-phong" role="option" aria-selected="false" class="text-lg text-gray-800 font-medium cursor-pointer select-none relative py-2 pl-3 pr-9 hover:bg-green-100 hover:text-green-700 transition duration-150">
+                                Hải Phòng
+                            </li>
+                            <li data-value="thanh-hoa" role="option" aria-selected="false" class="text-lg text-gray-800 font-medium cursor-pointer select-none relative py-2 pl-3 pr-9 hover:bg-green-100 hover:text-green-700 transition duration-150">
                                 Thanh Hóa
                             </li>
                         </ul>
@@ -199,6 +202,7 @@
                     </div>
                 </div>
             </a>
+            
             <a href="{{ url('/filter/thanh-hoa') }}" class="group block">
                 <div class="relative h-[450px] rounded-2xl overflow-hidden">
                     <img class="absolute inset-0 w-full h-full object-cover transition-transform duration-300 group-hover:scale-105" src="https://n1-cstg.mioto.vn/g/2025/02/05/15/595BB2FL.jpg" alt="Thanh Hóa">

@@ -53,14 +53,14 @@ Route::post('/admin/logout', [AdminAuthController::class, 'logout']);
 Route::get('/admin', [AdminDashboardController::class, 'index']);
 
 Route::get('/admin/cars', [AdminCarController::class, 'index']);
-Route::get('/admin/cars/create', [AdminCarController::class, 'create']);
-Route::post('/admin/cars', [AdminCarController::class, 'store']);
 Route::get('/admin/cars/{car}/edit', [AdminCarController::class, 'edit']);
 Route::put('/admin/cars/{car}', [AdminCarController::class, 'update']);
 Route::delete('/admin/cars/{car}', [AdminCarController::class, 'destroy']);
 
 Route::get('/admin/users', [AdminUserController::class, 'index']);
-Route::get('/admin/owners', [AdminUserController::class, 'owners']);
 Route::post('/admin/users/{user}/lock', [AdminUserController::class, 'lock']);
+Route::get('/admin/users/{user}/edit', [AdminUserController::class, 'edit']);
+Route::put('/admin/users/{user}', [AdminUserController::class, 'update']);
+Route::post('/admin/users/{user}/toggle-role', [AdminUserController::class, 'toggleRole']);
 
 Route::get('/admin/bookings', [AdminBookingController::class, 'index']);

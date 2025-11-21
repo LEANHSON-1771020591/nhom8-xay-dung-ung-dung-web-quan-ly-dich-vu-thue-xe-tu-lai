@@ -14,21 +14,11 @@
             <h1 class="text-2xl sm:text-3xl font-bold text-gray-900">Quản lý Xe</h1>
             <a href="{{ url('/admin') }}" class="text-green-600 hover:text-green-700 font-medium">Về Dashboard</a>
         </div>
-        <div class="flex items-center justify-between mb-4">
-            <a href="{{ url('/admin/cars/create') }}" class="inline-block bg-green-600 text-white font-medium px-4 py-2 rounded-lg hover:bg-green-700 inline-flex items-center space-x-2">
-                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" class="h-5 w-5" fill="currentColor"><path d="M11 11V5h2v6h6v2h-6v6h-2v-6H5v-2h6Z"/></svg>
-                <span>Tạo xe mới</span>
-            </a>
-        </div>
         <form method="GET" class="grid grid-cols-1 sm:grid-cols-4 gap-4 bg-white border border-gray-200 rounded-xl p-4 mb-6">
             
             <div>
                 <label class="block text-sm text-gray-600 mb-1">Thành phố</label>
                 <input type="text" name="location" value="{{ request('location') }}" class="w-full border border-gray-300 rounded-lg px-3 py-2" placeholder="ho-chi-minh">
-            </div>
-            <div>
-                <label class="block text-sm text-gray-600 mb-1">Chủ xe (ID)</label>
-                <input type="number" name="owner" value="{{ request('owner') }}" class="w-full border border-gray-300 rounded-lg px-3 py-2" placeholder="1">
             </div>
             <div>
                 <label class="block text-sm text-gray-600 mb-1">Tên xe</label>
@@ -80,7 +70,7 @@
                         <th class="px-4 py-2 text-left">Ảnh</th>
                         <th class="px-4 py-2 text-left">Model</th>
                         <th class="px-4 py-2 text-left">Thành phố</th>
-                        <th class="px-4 py-2 text-left">Chủ xe</th>
+                        <th class="px-4 py-2 text-left">Mã chủ xe</th>
                         <th class="px-4 py-2 text-left">Giá</th>
                         <th class="px-4 py-2 text-left">Trạng thái</th>
                         <th class="px-4 py-2 text-left">Hành động</th>

@@ -50,6 +50,7 @@
                             <option value="ho-chi-minh" {{ $loc==='ho-chi-minh' ? 'selected' : '' }}>Ho Chi Minh</option>
                             <option value="ha-noi" {{ $loc==='ha-noi' ? 'selected' : '' }}>Ha Noi</option>
                             <option value="da-nang" {{ $loc==='da-nang' ? 'selected' : '' }}>Da Nang</option>
+                            <option value="hai-phong" {{ $loc==='hai-phong' ? 'selected' : '' }}>Hai Phong</option>
                             <option value="thanh-hoa" {{ $loc==='thanh-hoa' ? 'selected' : '' }}>Thanh Hoa</option>
                         </select>
                         @error('location')

@@ -18,7 +18,6 @@ class AdminCarController extends Controller
         }
         
         $location = request('location');
-        $owner = request('owner');
         $model = request('model');
         $transmission = request('transmission');
         $seat = request('seat');
@@ -29,7 +28,6 @@ class AdminCarController extends Controller
         $query = Car::query();
         
         if ($location) $query->where('location', $location);
-        if ($owner) $query->where('owner_id', (int)$owner);
         if ($model) $query->where('model','like','%'.$model.'%');
         if ($transmission) $query->where('transmission',$transmission);
         if ($seat) $query->where('seat',(int)$seat);
@@ -38,63 +36,8 @@ class AdminCarController extends Controller
         if ($max !== null && $max !== '') $query->whereRaw('CAST(price AS UNSIGNED) <= ?', [(int)$max]);
         
         $cars = $query->orderBy('created_at','desc')->get();
-        $owners = User::whereHas('cars')->get();
         
-        return view('admin.cars.index', compact('cars','owners'));
-    }
-
-    public function create()
-    {
-        if (!Auth::check() || Auth::user()->role !== 'admin') {
-            return redirect(url('/admin/login'));
-        }
-        return view('admin.cars.create');
-    }
-
-    public function store(Request $request)
-    {
-        if (!Auth::check() || Auth::user()->role !== 'admin') {
-            return redirect(url('/admin/login'));
-        }
-        
-        $validated = $request->validate([
-            'model' => 'required|string|min:2',
-            'address' => 'required|string|min:2',
-            'location' => 'required|string',
-            'price' => 'required|integer|min:1',
-            'seat' => 'required|integer|min:4',
-            'transmission' => 'required|in:AT,MT',
-            'fuel' => 'required|in:Xăng,Dầu,Điện',
-            'images' => 'required|array|size:4',
-            'images.*' => 'file|mimes:jpg,jpeg,png,webp|max:5120',
-            'desc' => 'required|string|min:10',
-            'owner_id' => 'required|integer|exists:users,id',
-        ]);
-        
-        $paths = [];
-        foreach ($request->file('images') as $file) {
-            $paths[] = $file->store('cars', 'public');
-        }
-        
-        $slug = Str::slug($validated['model']).'-'.Str::random(6);
-        
-        $car = Car::create([
-            'model' => $validated['model'],
-            'address' => $validated['address'],
-            'location' => $validated['location'],
-            'price' => (string)$validated['price'],
-            'images' => $paths,
-            'desc' => $validated['desc'],
-            'trip' => 0,
-            'transmission' => $validated['transmission'],
-            'seat' => (int)$validated['seat'],
-            'fuel' => $validated['fuel'],
-            'consumed' => '—',
-            'owner_id' => (int)$validated['owner_id'],
-            'slug' => $slug,
-        ]);
-        
-        return redirect(url('/admin/cars'))->with('success','Đã tạo xe mới');
+        return view('admin.cars.index', compact('cars'));
     }
 
     public function edit(Car $car)

@@ -59,6 +59,18 @@ class CarMiotoSeeder extends Seeder
         $ownerCount = $owners->count();
         $i = 0;
 
+        $genericOwner = User::firstOrCreate(
+            ['email' => 'unknown_owner@import.local'],
+            [
+                'name' => 'Unknown Owner',
+                'password' => bcrypt('secret123'),
+                'avatar' => 'https://via.placeholder.com/80',
+                'slug' => 'unknown-owner',
+                'role' => 'owner',
+                'is_locked' => false,
+            ]
+        );
+
         $mapCity = function ($loc) {
             $m = [
                 'TP.HCM' => 'ho-chi-minh',
@@ -134,9 +146,27 @@ class CarMiotoSeeder extends Seeder
                 });
                 $ownerId = $owner?->id;
             }
-            // If still not resolved, skip creating this car to avoid fake linking
             if (!$ownerId) {
-                return;
+                // Try to create/find owner from car.mioto_user_id
+                if (!empty($car['mioto_user_id'])) {
+                    $identifier = (string) $car['mioto_user_id'];
+                    $email = 'mioto_owner_'.$identifier.'@import.local';
+                    $owner = User::firstOrCreate(
+                        ['email' => $email],
+                        [
+                            'name' => 'Owner '.$identifier,
+                            'password' => bcrypt('secret123'),
+                            'avatar' => 'https://via.placeholder.com/80',
+                            'slug' => \Illuminate\Support\Str::slug('Owner '.$identifier),
+                            'role' => 'owner',
+                            'is_locked' => false,
+                        ]
+                    );
+                    $ownerId = $owner->id;
+                } else {
+                    // Fallback to generic owner
+                    $ownerId = $genericOwner->id;
+                }
             }
             $i++;
             $slug = Str::slug($car['model']).'-'.Str::random(6);

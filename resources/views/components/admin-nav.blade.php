@@ -16,10 +16,6 @@
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" class="h-5 w-5 text-gray-300" fill="currentColor"><path d="M6 2h12v4H6V2Zm-2 6h16v14H4V8Zm4 3h8v2H8v-2Zm0 4h8v2H8v-2Z"/></svg>
             <span>Quản lý Booking</span>
         </a>
-        <a href="{{ url('/admin/owners') }}" class="flex items-center space-x-2 px-3 py-2 rounded hover:bg-gray-800">
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" class="h-5 w-5 text-gray-300" fill="currentColor"><path d="M12 12a5 5 0 1 0-5-5 5 5 0 0 0 5 5Zm-9 9a9 9 0 1 1 18 0H3Z"/></svg>
-            <span>Quản lý Chủ xe</span>
-        </a>
         <a href="{{ url('/admin/users') }}" class="flex items-center space-x-2 px-3 py-2 rounded hover:bg-gray-800">
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" class="h-5 w-5 text-gray-300" fill="currentColor"><path d="M16 11a4 4 0 1 0-4-4 4 4 0 0 0 4 4ZM4 20a6 6 0 0 1 12 0H4Zm0 0"/></svg>
             <span>Quản lý Người dùng</span>

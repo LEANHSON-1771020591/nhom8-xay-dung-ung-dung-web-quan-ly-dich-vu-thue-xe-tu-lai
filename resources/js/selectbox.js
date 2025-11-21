@@ -41,8 +41,8 @@ function initSelectBox() {
     if (searchButton) {
         searchButton.addEventListener('click', function (e) {
             e.preventDefault();
-            const m = { HoChiMinh: 'ho-chi-minh', HaNoi: 'ha-noi', DaNang: 'da-nang', ThanhHoa: 'thanh-hoa' };
-            const slug = m[selectedValue] || selectedValue;
+            const m = { HoChiMinh: 'ho-chi-minh', HaNoi: 'ha-noi', DaNang: 'da-nang', HaiPhong: 'hai-phong', ThanhHoa: 'thanh-hoa' };
+            const slug = m[selectedValue] || selectedValue.replace(/([a-z])([A-Z])/g, '$1-$2').toLowerCase();
             window.location.href = `/filter/${slug}`;
         });
     }
