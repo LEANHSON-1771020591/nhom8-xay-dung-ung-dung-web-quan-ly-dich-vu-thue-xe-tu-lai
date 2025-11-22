@@ -37,7 +37,7 @@ Hệ thống Quản lý Đoàn viên trong trường Đại học được xây 
 [![SCSS](https://img.shields.io/badge/SCSS-CC6699?style=for-the-badge&logo=sass&logoColor=white)](#)
 [![JavaScript](https://img.shields.io/badge/JavaScript-F7DF1E?style=for-the-badge&logo=javascript&logoColor=black)](#)
 [![Bootstrap](https://img.shields.io/badge/Bootstrap-563D7C?style=for-the-badge&logo=bootstrap&logoColor=white)](https://getbootstrap.com/)
-
+![Laravel](https://img.shields.io/badge/laravel-%23FF2D20.svg?style=for-the-badge&logo=laravel&logoColor=white)
 ### Web Server & Database
 [![Apache](https://img.shields.io/badge/Apache-D22128?style=for-the-badge&logo=apache&logoColor=white)](https://httpd.apache.org/)
 [![MySQL](https://img.shields.io/badge/MySQL-4479A1?style=for-the-badge&logo=mysql&logoColor=white)](https://www.mysql.com/) 
@@ -60,22 +60,22 @@ Hệ thống Quản lý Đoàn viên trong trường Đại học được xây 
 
 ### Trang quản lý xe
 <p align="center">
-    <img src="public/images/imgreadme/CarManage.png" alt="Quản lý xe" width="900">
+    <img src="public/images/imgreadme/quanlyxe.png" alt="Quản lý xe" width="900">
 </p>
 
 ### Trang quản lý đặt xe
 <p align="center">
-    <img src="public/images/imgreadme/BookingManage.png" alt="Quản lý đặt xe" width="900">
+    <img src="public/images/imgreadme/quanlybooking.png" alt="Quản lý đặt xe" width="900">
 </p>
 
 ### Trang quản lý người dùng
 <p align="center">
-    <img src="public/images/imgreadme/User.png" alt="Quản lý người dùng" width="900">
+    <img src="public/images/imgreadme/quanlynguoidung.png" alt="Quản lý người dùng" width="900">
 </p>
 
-### Trang quản lý chủ xe
+### Trang quản lý bài viết
 <p align="center">
-    <img src="public/images/imgreadme/Owner.png" alt="Quản lý chủ xe" width="900">
+    <img src="public/images/imgreadme/quanlyblog.png" alt="Quản lý bài viết" width="900">
 </p>
 
 ## ⚙️ 4. Cài đặt
