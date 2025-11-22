@@ -50,32 +50,32 @@ Hệ thống Quản lý Đoàn viên trong trường Đại học được xây 
 ## 🚀 3. Hình ảnh các chức năng
 ### Trang đăng nhập
 <p align="center">
-    <img src="public/images/imgreadme/login.png" alt="login" width="900">
+    <img src="public/images/imgreadme/login.jpg" alt="login" width="900">
 </p>
 
 ### Trang dashboard admin
 <p align="center">
-    <img src="public/images/imgreadme/dashboard.png" alt="Admin Dashboard" width="900">
+    <img src="public/images/imgreadme/dashboard.jpg" alt="Admin Dashboard" width="900">
 </p>
 
 ### Trang quản lý xe
 <p align="center">
-    <img src="public/images/imgreadme/quanlyxe.png" alt="Quản lý xe" width="900">
+    <img src="public/images/imgreadme/quanlyxe.jpg" alt="Quản lý xe" width="900">
 </p>
 
 ### Trang quản lý đặt xe
 <p align="center">
-    <img src="public/images/imgreadme/quanlybooking.png" alt="Quản lý đặt xe" width="900">
+    <img src="public/images/imgreadme/quanlybooking.jpg" alt="Quản lý đặt xe" width="900">
 </p>
 
 ### Trang quản lý người dùng
 <p align="center">
-    <img src="public/images/imgreadme/quanlynguoidung.png" alt="Quản lý người dùng" width="900">
+    <img src="public/images/imgreadme/quanlynguoidung.jpg" alt="Quản lý người dùng" width="900">
 </p>
 
 ### Trang quản lý bài viết
 <p align="center">
-    <img src="public/images/imgreadme/quanlyblog.png" alt="Quản lý bài viết" width="900">
+    <img src="public/images/imgreadme/quanlyblog.jpg" alt="Quản lý bài viết" width="900">
 </p>
 
 ## ⚙️ 4. Cài đặt
