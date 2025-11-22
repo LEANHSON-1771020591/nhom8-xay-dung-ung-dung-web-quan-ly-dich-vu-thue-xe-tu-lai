@@ -26,7 +26,6 @@
                         <th class="p-3 text-left">ID</th>
                         <th class="p-3 text-left">Tiêu đề</th>
                         <th class="p-3 text-left">Thumbnail</th>
-                        <th class="p-3 text-left">Link</th>
                         <th class="p-3 text-left">Thao tác</th>
                     </tr>
                 </thead>
@@ -35,8 +34,9 @@
                     <tr class="border-t hover:bg-gray-50">
                         <td class="p-3">{{ $b->id }}</td>
                         <td class="p-3 truncate max-w-[420px]">{{ $b->title }}</td>
-                        <td class="p-3"><img src="{{ $b->thumbnail }}" alt="thumb" class="w-24 h-14 object-cover rounded"></td>
-                        <td class="p-3"><a class="text-blue-600" href="{{ $b->link }}" target="_blank" rel="noopener">Mở</a></td>
+                        @php($src = \Illuminate\Support\Str::startsWith($b->thumbnail, ['http://','https://','//']) ? $b->thumbnail : asset('storage/'.$b->thumbnail))
+                        <td class="p-3"><img src="{{ $src }}" alt="thumb" class="w-24 h-14 object-cover rounded"></td>
+                        <td class="p-3"><a class="text-blue-600" href="{{ url('/blog/'.$b->id) }}">Xem</a></td>
                         <td class="p-3">
                             <div class="flex gap-2">
                                 <a href="{{ url('/admin/blogs/'.$b->id.'/edit') }}" class="px-3 py-1 bg-yellow-500 hover:bg-yellow-600 text-white rounded">Sửa</a>

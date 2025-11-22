@@ -422,9 +422,10 @@
         @else
         <div class="grid grid-cols-1 lg:grid-cols-3 gap-6 items-stretch">
             <div class="flex flex-col gap-6">
-                @foreach($others as $b)
-                <a href="{{ $b->link }}" class="relative overflow-hidden rounded-2xl h-[240px] group" target="_blank" rel="noopener noreferrer">
-                    <img loading="lazy" decoding="async" referrerpolicy="no-referrer" class="absolute inset-0 w-full h-full object-cover" src="{{ $b->thumbnail }}" alt="{{ $b->title }}">
+            @foreach($others as $b)
+            <a href="{{ url('/blog/'.$b->id) }}" class="relative overflow-hidden rounded-2xl h-[240px] group">
+                @php($srcB = \Illuminate\Support\Str::startsWith($b->thumbnail, ['http://','https://','//']) ? $b->thumbnail : asset('storage/'.$b->thumbnail))
+                <img loading="lazy" decoding="async" referrerpolicy="no-referrer" class="absolute inset-0 w-full h-full object-cover" src="{{ $srcB }}" alt="{{ $b->title }}">
                     <div class="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent"></div>
                     <div class="relative z-10 p-4 text-white">
                         <p class="text-xs opacity-80">{{ optional($b->created_at)->format('d/m/Y') }}</p>
@@ -433,8 +434,9 @@
                 </a>
                 @endforeach
             </div>
-            <a href="{{ $main->link }}" class="lg:col-span-2 relative overflow-hidden rounded-2xl group" target="_blank" rel="noopener noreferrer">
-                <img loading="lazy" decoding="async" referrerpolicy="no-referrer" class="absolute inset-0 w-full h-full object-cover" src="{{ $main->thumbnail }}" alt="{{ $main->title }}">
+            <a href="{{ url('/blog/'.$main->id) }}" class="lg:col-span-2 relative overflow-hidden rounded-2xl group">
+            @php($srcM = \Illuminate\Support\Str::startsWith($main->thumbnail, ['http://','https://','//']) ? $main->thumbnail : asset('storage/'.$main->thumbnail))
+            <img loading="lazy" decoding="async" referrerpolicy="no-referrer" class="absolute inset-0 w-full h-full object-cover" src="{{ $srcM }}" alt="{{ $main->title }}">
                 <div class="absolute inset-0 bg-gradient-to-t from-black/70 via-black/30 to-transparent"></div>
                 <div class="relative z-10 p-6 sm:p-8 text-white">
                     <p class="text-xs sm:text-sm opacity-80 mb-2">{{ optional($main->created_at)->format('d/m/Y') }}</p>

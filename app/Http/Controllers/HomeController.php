@@ -11,8 +11,8 @@ class HomeController extends Controller
     {
         $cars = Car::where('status', 'approved')->take(8)->get();
         $blogs = Blog::orderByDesc('id')
-            ->select(['id','title','content_text_preview','thumbnail','link','created_at'])
-            ->take(3)
+            ->select(['id','title','content_text_preview','thumbnail','created_at'])
+            ->take(3)->offset(67)
             ->get();
         return view('index', compact('cars','blogs'));
     }

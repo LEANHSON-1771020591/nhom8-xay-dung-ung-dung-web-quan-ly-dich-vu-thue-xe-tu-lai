@@ -19,10 +19,6 @@
                 <input type="text" name="title" class="w-full border rounded px-3 py-2" value="{{ $blog->title }}" required>
             </div>
             <div class="mb-4">
-                <label class="block text-sm mb-1">Link (tuỳ chọn)</label>
-                <input type="url" name="link" class="w-full border rounded px-3 py-2" value="{{ $blog->link }}">
-            </div>
-            <div class="mb-4">
                 <label class="block text-sm mb-1">Thumbnail URL</label>
                 <input type="text" name="thumbnail" class="w-full border rounded px-3 py-2" value="{{ $blog->thumbnail }}" required>
             </div>

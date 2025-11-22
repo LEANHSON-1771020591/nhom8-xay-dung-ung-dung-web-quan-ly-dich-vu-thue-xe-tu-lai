@@ -14,6 +14,7 @@ use App\Http\Controllers\Admin\AdminCarController;
 use App\Http\Controllers\Admin\AdminUserController;
 use App\Http\Controllers\Admin\AdminBookingController;
 use App\Http\Controllers\Admin\AdminBlogController;
+use App\Http\Controllers\BlogController;
 
 // Home routes - sử dụng HomeController
 Route::get('/', [HomeController::class, 'index']);
@@ -42,6 +43,7 @@ Route::get('/filter/{slug}', [CategoryController::class, 'filter']);
 
 Route::get('/car/{slug}', [CarController::class, 'show']);
 Route::get('/users/{slug}', [UserController::class, 'show']);
+Route::get('/blog/{blog}', [BlogController::class, 'show']);
 
 
 // Admin routes

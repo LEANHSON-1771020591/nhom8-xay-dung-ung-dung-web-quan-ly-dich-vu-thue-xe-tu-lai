@@ -5,6 +5,9 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Http;
+use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Str;
 use App\Models\Blog;
 
 class AdminBlogController extends Controller
@@ -36,11 +39,11 @@ class AdminBlogController extends Controller
         if ($r = $this->ensureAdmin()) return $r;
         $data = $request->validate([
             'title' => 'required|string|min:3',
-            'link' => 'nullable|url',
             'content_text_preview' => 'required|string|min:3',
             'content_html' => 'required|string|min:3',
-            'thumbnail' => 'required|url',
+            'thumbnail' => 'required|string',
         ]);
+        $data['thumbnail'] = $this->persistThumbnail($data['thumbnail']);
         Blog::create($data);
         return redirect('/admin/blogs')->with('success', 'Đã tạo bài blog');
     }
@@ -56,11 +59,11 @@ class AdminBlogController extends Controller
         if ($r = $this->ensureAdmin()) return $r;
         $data = $request->validate([
             'title' => 'required|string|min:3',
-            'link' => 'nullable|url',
             'content_text_preview' => 'required|string|min:3',
             'content_html' => 'required|string|min:3',
-            'thumbnail' => 'required|url',
+            'thumbnail' => 'required|string',
         ]);
+        $data['thumbnail'] = $this->persistThumbnail($data['thumbnail']);
         $blog->update($data);
         return redirect('/admin/blogs')->with('success', 'Đã cập nhật bài blog');
     }
@@ -70,5 +73,21 @@ class AdminBlogController extends Controller
         if ($r = $this->ensureAdmin()) return $r;
         $blog->delete();
         return redirect('/admin/blogs')->with('success', 'Đã xóa bài blog');
+    }
+
+    private function persistThumbnail(string $url): string
+    {
+        try {
+            if (!Str::startsWith($url, ['http://','https://','//'])) return $url;
+            $resp = Http::timeout(10)->get($url);
+            if ($resp->ok()) {
+                $mime = $resp->header('Content-Type') ?: 'image/jpeg';
+                $ext = Str::contains($mime, 'png') ? 'png' : (Str::contains($mime, 'webp') ? 'webp' : 'jpg');
+                $name = 'blog_thumbs/'.Str::uuid().'.'.$ext;
+                Storage::disk('public')->put($name, $resp->body());
+                return $name;
+            }
+        } catch (\Throwable $e) {}
+        return $url;
     }
 }
