@@ -31,8 +31,6 @@ class BlogSeeder extends Seeder
         $items = collect(json_decode($json, true));
         $count = 0;
         $items->each(function ($b) use (&$count) {
-            $miotoId = $b['id'] ?? null;
-            if (!$miotoId) return;
             $thumb = $b['thumbnail'] ?? '';
             $localThumb = $thumb;
             if (is_string($thumb) && Str::startsWith($thumb, ['http://','https://','//'])) {
@@ -41,7 +39,7 @@ class BlogSeeder extends Seeder
                     if ($resp->ok()) {
                         $mime = $resp->header('Content-Type') ?: 'image/jpeg';
                         $ext = Str::contains($mime, 'png') ? 'png' : (Str::contains($mime, 'webp') ? 'webp' : 'jpg');
-                        $name = 'blog_thumbs/'.$miotoId.'.'.$ext;
+                        $name = 'blog_thumbs/'.Str::uuid().'.'.$ext;
                         Storage::disk('public')->put($name, $resp->body());
                         $localThumb = $name;
                     }
@@ -51,12 +49,12 @@ class BlogSeeder extends Seeder
             }
 
             Blog::updateOrCreate(
-                ['mioto_id' => $miotoId],
+                ['title' => $b['title'] ?? ''],
                 [
-                    'title' => $b['title'] ?? '',
                     'content_text_preview' => $b['content_text_preview'] ?? '',
                     'content_html' => $b['content_html'] ?? '',
                     'thumbnail' => $localThumb,
+                    'link' => $b['link'] ?? '',
                 ]
             );
             $count++;

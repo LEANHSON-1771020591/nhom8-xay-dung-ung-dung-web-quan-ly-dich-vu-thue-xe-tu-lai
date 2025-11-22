@@ -9,7 +9,6 @@ return new class extends Migration {
     {
         Schema::create('blogs', function (Blueprint $table) {
             $table->id();
-            $table->string('mioto_id')->index();
             $table->string('link');
             $table->string('title');
             $table->text('content_text_preview');
