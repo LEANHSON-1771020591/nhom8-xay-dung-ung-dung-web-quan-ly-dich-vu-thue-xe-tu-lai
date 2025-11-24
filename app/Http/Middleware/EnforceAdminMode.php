@@ -11,6 +11,9 @@ class EnforceAdminMode
     public function handle(Request $request, Closure $next)
     {
         if ($request->is('admin*')) {
+            if ($request->is('admin/login') || $request->is('admin/register') || $request->is('admin/logout')) {
+                return $next($request);
+            }
             if (session('admin_mode') !== true) {
                 if (Auth::check()) {
                     Auth::logout();
@@ -23,4 +26,3 @@ class EnforceAdminMode
         return $next($request);
     }
 }
-

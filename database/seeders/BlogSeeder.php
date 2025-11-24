@@ -54,7 +54,6 @@ class BlogSeeder extends Seeder
                     'content_text_preview' => $b['content_text_preview'] ?? '',
                     'content_html' => $b['content_html'] ?? '',
                     'thumbnail' => $localThumb,
-                    'link' => $b['link'] ?? '',
                 ]
             );
             $count++;

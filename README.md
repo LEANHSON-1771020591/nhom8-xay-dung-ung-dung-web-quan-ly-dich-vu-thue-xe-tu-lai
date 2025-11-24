@@ -48,6 +48,7 @@ Hệ thống Quản lý Đoàn viên trong trường Đại học được xây 
 </div>
 
 ## 🚀 3. Hình ảnh các chức năng
+### Trang admin
 ### Trang đăng nhập
 <p align="center">
     <img src="public/images/imgreadme/login.jpg" alt="login" width="900">
@@ -78,6 +79,11 @@ Hệ thống Quản lý Đoàn viên trong trường Đại học được xây 
     <img src="public/images/imgreadme/quanlyblog.jpg" alt="Quản lý bài viết" width="900">
 </p>
 
+### Trang chính
+
+<p align="center">
+    <img src="public/images/imgreadme/quanlyblog.jpg" alt="Quản lý bài viết" width="900">
+</p>
 ## ⚙️ 4. Cài đặt
 
 ### 4.1. Yêu cầu hệ thống
