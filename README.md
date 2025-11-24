@@ -80,10 +80,54 @@ Hệ thống Quản lý Đoàn viên trong trường Đại học được xây 
 </p>
 
 ### Trang chính
-
+### Chức năng tìm kiếm
 <p align="center">
-    <img src="public/images/imgreadme/quanlyblog.jpg" alt="Quản lý bài viết" width="900">
+    <img src="public/images/imgreadme/search.png" alt="Tìm kiếm" width="900">
 </p>
+
+### Chức năng gợi ý xe
+<p align="center">
+    <img src="public/images/imgreadme/recommend.png" alt="Gợi ý xe" width="900">
+</p>
+
+### Chức năng địa điểm nổi bật
+<p align="center">
+    <img src="public/images/imgreadme/local.png" alt="Địa điểm nổi bật" width="900">
+</p>
+
+### Chức năng xem blog
+<p align="center">
+    <img src="public/images/imgreadme/blog.png" alt="Xem blog" width="900">
+</p>
+
+### Chức năng tràng blog
+<p align="center">
+    <img src="public/images/imgreadme/blog-page.png" alt="Trang blog" width="900">
+</p>
+
+### Chức năng cho thuê xe
+<p align="center">
+    <img src="public/images/imgreadme/owner.png" alt="Cho thuê xe" width="900">
+</p>
+
+### Chức năng xem xe đã thuê
+<p align="center">
+    <img src="public/images/imgreadme/trip.png" alt="Xem xe đã thuê" width="900">
+</p>
+
+### Chức năng thuê xe
+<p align="center">
+    <img src="public/images/imgreadme/rent.png" alt="Thuê xe" width="900">
+</p>
+
+
+### Chức năng xem trang người dùng
+<p align="center">
+    <img src="public/images/imgreadme/user.png" alt="Xem trang người dùng" width="900">
+</p>
+
+
+
 ## ⚙️ 4. Cài đặt
 
 ### 4.1. Yêu cầu hệ thống
