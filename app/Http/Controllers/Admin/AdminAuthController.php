@@ -34,6 +34,7 @@ class AdminAuthController extends Controller
         }
         
         $request->session()->regenerate();
+        $request->session()->put('admin_mode', true);
         return redirect(url('/admin'));
     }
 
@@ -61,6 +62,7 @@ class AdminAuthController extends Controller
         ]);
         
         Auth::login($user);
+        $request->session()->put('admin_mode', true);
         return redirect(url('/admin'));
     }
 
@@ -69,7 +71,7 @@ class AdminAuthController extends Controller
         Auth::logout();
         $request->session()->invalidate();
         $request->session()->regenerateToken();
+        $request->session()->forget('admin_mode');
         return redirect(url('/admin/login'));
     }
 }
-

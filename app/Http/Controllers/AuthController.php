@@ -28,6 +28,7 @@ class AuthController extends Controller
         }
         
         $request->session()->regenerate();
+        $request->session()->forget('admin_mode');
         return redirect('/my-trips');
     }
 
