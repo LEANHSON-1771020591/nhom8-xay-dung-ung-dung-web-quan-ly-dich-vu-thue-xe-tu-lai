@@ -16,25 +16,25 @@ use App\Http\Controllers\Admin\AdminBookingController;
 use App\Http\Controllers\Admin\AdminBlogController;
 use App\Http\Controllers\BlogController;
 
-// Home routes - sử dụng HomeController
+// Home routes 
 Route::get('/', [HomeController::class, 'index']);
 Route::get('/about', [HomeController::class, 'about']);
 
-// Auth routes - sử dụng AuthController
+// Auth routes 
 Route::get('/login', [AuthController::class, 'showLoginForm']);
 Route::post('/login', [AuthController::class, 'login']);
 Route::post('/logout', [AuthController::class, 'logout']);
 Route::get('/register', [AuthController::class, 'showRegisterForm']);
 Route::post('/register', [AuthController::class, 'register']);
 
-// Owner routes - sử dụng OwnerController
+// Owner routes 
 Route::get('/owner', [OwnerController::class, 'create']);
 Route::post('/owner', [OwnerController::class, 'store']);
 Route::get('/owner/cars/{car}/edit', [OwnerController::class, 'edit']);
 Route::put('/owner/cars/{car}', [OwnerController::class, 'update']);
 Route::delete('/owner/cars/{car}', [OwnerController::class, 'destroy']);
 
-// Trip routes - sử dụng TripController
+// Trip routes 
 Route::get('/my-trips', [TripController::class, 'index']);
 Route::post('/book/{car}', [TripController::class, 'store']);
 Route::post('/bookings/{booking}/cancel', [TripController::class, 'cancel']);
